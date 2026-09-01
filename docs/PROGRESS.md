@@ -50,9 +50,11 @@ Development log, newest first. Two conventions worth knowing before reading:
   now masks both path aliases, with a focused regression test.
 - Updated the SHA-pinned checkout, cache, and release artifact actions to
   Node 24 releases after GitHub began warning on older action runtimes.
-- Kept LLVM 21 in the dedicated minimum-version lanes while moving the
-  Windows MCP/installer smoke to LLVM 23 on `windows-latest`, matching the
-  Windows release toolchain instead of duplicating the older archive download.
+- Kept LLVM 21 in the Linux minimum-version lane, moved the VS2022 lane to
+  LLVM 22.1.8 for the older-IR example coverage, and moved the Windows
+  MCP/installer smoke to LLVM 23 on `windows-latest` to match the release
+  toolchain. The prior LLVM 21 Windows archive repeatedly spent more than
+  twelve minutes in download/extraction without reaching configuration.
 
 ## 2026-09-01 — Ubuntu 26.04 fresh-clone verification
 
