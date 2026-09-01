@@ -34,7 +34,7 @@ jobs:
             mcp_bin: mcp/target/release/irez-mcp
             python: python3
           - platform: windows-x86_64
-            os: windows-2022
+            os: windows-latest
             llvm: 23.1.0
             cpp_bin: build/Release
             mcp_bin: mcp/target/release/irez-mcp.exe

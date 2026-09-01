@@ -7,7 +7,7 @@ Official releases currently target x86-64 only:
 | Bundle | Minimum runtime baseline | Build runner |
 |---|---|---|
 | `linux-x86_64` | glibc 2.35 (Ubuntu 22.04 class systems) | `ubuntu-22.04`, LLVM 22.1.8 |
-| `windows-x86_64` | Windows 10 or newer | `windows-2022`, MSVC/VS 2022, LLVM 23.1.0 |
+| `windows-x86_64` | Windows 10 or newer | `windows-latest`, MSVC/VS 2026, LLVM 23.1.0 |
 
 The Linux C++ binaries statically link the GCC support runtimes and the
 Windows C++ binaries statically link the MSVC runtime. LLVM and SQLite are
@@ -33,9 +33,10 @@ Check `llvm_build_version` in `irez status` before concluding that a parse
 failure is a defect in the IR. Producing IR for a project to ingest is
 covered in [NEW_PROJECT.md](NEW_PROJECT.md).
 
-`ubuntu-latest`, explicit Ubuntu 26.04, `windows-latest` (currently VS 2026),
-and newer compilers remain in the test matrix as operating-system/toolchain
-forward lanes.
+`ubuntu-latest` and explicit Ubuntu 26.04 remain in the test matrix as
+operating-system/toolchain forward lanes. The Windows CI and release lanes use
+`windows-latest` (currently VS 2026) with LLVM 23.1.0, matching the newest
+locally verified reader and compiler configuration.
 The two release bundles deliberately use different LLVM versions. Windows
 uses LLVM 23.1.0 for the newest tested reader. Linux uses LLVM 22.1.8 because
 that is the newest exact LLVM release provided by LLVM's official Ubuntu

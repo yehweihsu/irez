@@ -70,11 +70,6 @@ jobs:
             llvm: 23.1.0
             portable: "OFF"
             compiler: gcc
-          - name: windows-llvm22-vs2022
-            os: windows-2022
-            llvm: 22.1.8
-            portable: "OFF"
-            compiler: msvc
           - name: windows-latest
             os: windows-latest
             llvm: 23.1.0
