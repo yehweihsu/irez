@@ -19,6 +19,7 @@ import json
 import re
 import subprocess
 import tempfile
+from functools import cache
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -134,6 +135,20 @@ def command_sequence() -> list[tuple[str, list[str]]]:
     ]
 
 
+@cache
+def path_spellings(path: Path) -> frozenset[str]:
+    """Return stable textual aliases for a path, including Windows 8.3 names."""
+    candidates = {str(path)}
+    try:
+        candidates.add(str(path.resolve()))
+    except OSError:
+        # Normalization must remain useful even if an already-removed
+        # temporary path can no longer be resolved.
+        pass
+    return frozenset(candidate for spelling in candidates
+                     for candidate in (spelling, spelling.replace("\\", "/")))
+
+
 def normalize(value, state_dir: Path | None = None):
     if isinstance(value, dict):
         dynamic_versions = {"dialect_version", "llvm_build_version",
@@ -163,12 +178,12 @@ def normalize(value, state_dir: Path | None = None):
         value = UUID_RE.sub("<UUID>", value)
         value = TS_RE.sub("<TS>", value)
         if state_dir is not None:
-            value = value.replace(str(state_dir), "<STATE>")
-            value = value.replace(str(state_dir).replace("\\", "/"), "<STATE>")
+            for spelling in path_spellings(state_dir):
+                value = value.replace(spelling, "<STATE>")
         # Mask the checkout root so goldens recorded on one machine/OS
         # (e.g. WSL paths like /mnt/d/...) match runs anywhere else.
-        value = value.replace(str(ROOT), "<ROOT>")
-        value = value.replace(str(ROOT).replace("\\", "/"), "<ROOT>")
+        for spelling in path_spellings(ROOT):
+            value = value.replace(spelling, "<ROOT>")
         # Canonicalize separators in the remainder of masked paths so that
         # Windows ("<ROOT>\\fixtures\\x.ll") and POSIX recordings agree.
         # Diagnostics may prefix a masked path with a tool name, so the path

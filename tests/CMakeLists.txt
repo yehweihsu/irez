@@ -10,3 +10,5 @@ find_package(Python3 REQUIRED COMPONENTS Interpreter)
 add_test(NAME diff-golden
   COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../scripts/diff_test.py
           --binary $<TARGET_FILE:irez>)
+add_test(NAME diff-normalize
+  COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test_diff_normalize.py)

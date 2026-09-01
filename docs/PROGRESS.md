@@ -45,6 +45,14 @@ Development log, newest first. Two conventions worth knowing before reading:
   `llvm::json::Object::erase`. Guard projection now removes storage-only
   columns before constructing the JSON object, preserving the same response
   contract across LLVM 21-23.
+- Hosted Windows used an 8.3 short spelling for Python's temporary directory
+  while the C++ CLI reported the resolved long spelling. Golden normalization
+  now masks both path aliases, with a focused regression test.
+- Updated the SHA-pinned checkout, cache, and release artifact actions to
+  Node 24 releases after GitHub began warning on older action runtimes.
+- Kept LLVM 21 in the dedicated minimum-version lanes while moving the
+  Windows MCP/installer smoke to LLVM 23 on `windows-latest`, matching the
+  Windows release toolchain instead of duplicating the older archive download.
 
 ## 2026-09-01 — Ubuntu 26.04 fresh-clone verification
 
