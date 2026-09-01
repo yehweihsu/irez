@@ -1,4 +1,4 @@
-# IREZ V00_01
+# IREZ
 
 [![ci](https://github.com/yehweihsu/irez/actions/workflows/ci.yml/badge.svg)](https://github.com/yehweihsu/irez/actions/workflows/ci.yml)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
@@ -127,9 +127,10 @@ For an extracted binary release (`.exe` is implied on Windows):
 From a source checkout, replace `./bin/irez` with `build/irez`.
 
 See [docs/CLI.md](docs/CLI.md) for the full command reference, envelope
-contract, handle format, and exit codes. V00_01 adds bounded function views,
-`trace-return`, refresh/reindex behavior, and explicit capability/version
-evidence; `--adapter` is gone because the parser is in-process.
+contract, handle format, and exit codes. The CLI provides bounded function
+views, `trace-return`, refresh/reindex behavior, and explicit
+capability/version evidence; `--adapter` is gone because the parser is
+in-process.
 `irez-llvm-index` (catalog/function/version subcommands, JSONL on stdout)
 remains available for debugging.
 
@@ -145,27 +146,27 @@ User-visible release history is recorded in [CHANGELOG.md](CHANGELOG.md).
   through the `IREZ_DEPS_DIR` CMake variable instead of being copied, so
   Linux/Windows and x64/ARM64 builds only need a C++20 compiler, CMake,
   LLVM 21+, and Cargo.
-- `irez-llvm-index` remains as a standalone JSONL binary with the V00_00
-  command-line contract, for debugging and adapter cross-checks. The CLI
-  itself drops `--adapter`: there is no external parser process anymore.
+- `irez-llvm-index` remains as a standalone JSONL binary with `catalog`,
+  `function`, and `version` subcommands for debugging and adapter
+  cross-checks. The CLI itself has no `--adapter` option because there is no
+  external parser process.
 - `irez-mcp` spawns the `irez` CLI per tool call and passes the JSON envelope
   through. No FFI, no duplicated logic; the CLI stdout contract is the IPC.
 - UUIDs are generated with `std::random_device` (RFC 4122 v4); no dependency.
 
-V00_01 is a full rewrite of the V00_00 service layer: **C++20 owns all core
-logic** (store, queries, envelope, and the LLVM adapter, now linked
-in-process), and **Rust owns only the MCP interface**. There is no Python left
-in the product path. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the
-process boundaries and [docs/PROGRESS.md](docs/PROGRESS.md) for the work log
-and the V00_00 bugs fixed during the port.
+IREZ uses a **C++20 core** for LLVM parsing, storage, queries, and response
+envelopes. The **Rust component is a thin MCP stdio adapter** that invokes the
+CLI. Python is used only for tests and release tooling, never at runtime. See
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the process boundaries and
+[docs/PROGRESS.md](docs/PROGRESS.md) for the development history.
 
 ## Layout
 
 ```text
 src/            C++ core + CLI + standalone adapter (all of the logic)
 mcp/            irez-mcp: Rust MCP server (rmcp, stdio), spawns the CLI
-tests/          GoogleTest suite + Python golden for the differential test
-scripts/        diff_test.py (C++ vs Python differential harness)
+tests/          GoogleTest suite + checked-in CLI response golden
+scripts/        Build, test, packaging, and release tooling
 fixtures/       LLVM IR fixtures (including regression fixtures)
 skills/         agent investigation skill (language-agnostic)
 ```
@@ -183,9 +184,9 @@ and exposes 14 query tools (`irez_status`, `irez_artifacts`, `irez_functions`,
 `irez_show`, `irez_graph`, `irez_slice`, `irez_uses`, `irez_guards`,
 `irez_context`, `irez_source`, `irez_expand`, `irez_capabilities`,
 `irez_trace_return`, `irez_trace_stores`). It holds no state and contains no
-query logic: each tool call spawns the CLI and returns its envelope. As in
-V00_00, MCP intentionally offers no `init` or `ingest` tool; prepare the state
-directory with the CLI first.
+query logic: each tool call spawns the CLI and returns its envelope. By design,
+MCP offers no `init` or `ingest` tool; prepare the state directory with the CLI
+first.
 
 Host registration (OpenCode, Codex) is a one-shot step per platform:
 
@@ -227,7 +228,7 @@ Linux / WSL:
 
 ```bash
 make build     # C++ core, CLI, standalone adapter, tests
-make test      # ctest: GoogleTest suite + Python golden differential test
+make test      # ctest: GoogleTest suite + Python-driven CLI golden test
 make e2e       # init + ingest --index full against fixtures/
 make mcp       # cargo build --release of mcp/ (irez-mcp)
 ```
