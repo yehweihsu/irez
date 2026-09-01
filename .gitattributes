@@ -1,0 +1,26 @@
+* text=auto
+
+# Cross-platform source and automation files use LF in every checkout.
+*.c text eol=lf
+*.cc text eol=lf
+*.cpp text eol=lf
+*.h text eol=lf
+*.hpp text eol=lf
+*.rs text eol=lf
+*.py text eol=lf
+*.sh text eol=lf
+*.ps1 text eol=lf
+*.cmake text eol=lf
+CMakeLists.txt text eol=lf
+Makefile text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
+*.md text eol=lf
+*.ll text eol=lf
+*.txt text eol=lf
+
+# Native Windows command wrappers retain CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf

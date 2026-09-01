@@ -1,0 +1,206 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  quality:
+    name: source quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Install Rust MSRV with quality components
+        run: |
+          rustup toolchain install 1.88.0 --profile minimal --component rustfmt,clippy
+          rustup default 1.88.0
+      - uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: ${{ runner.os }}-cargo-1.88-${{ hashFiles('mcp/Cargo.lock') }}
+      - name: Formatting and Python syntax
+        run: |
+          cargo fmt --manifest-path mcp/Cargo.toml --check
+          PYTHONPYCACHEPREFIX="$RUNNER_TEMP/pycache" python3 -m compileall -q scripts
+      - name: Contract constants are in sync with contract.json
+        run: |
+          python3 scripts/generate_contract.py --check
+          python3 scripts/release_notes.py --check
+      - name: Third-party notices match locked dependencies
+        run: |
+          cargo metadata --manifest-path mcp/Cargo.toml --locked --format-version 1 > /dev/null
+          python3 scripts/generate_third_party_notices.py --check
+      - name: Clippy
+        run: cargo clippy --manifest-path mcp/Cargo.toml --locked --all-targets -- -D warnings
+
+  cpp:
+    name: C++ ${{ matrix.name }} / LLVM ${{ matrix.llvm }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: linux-baseline
+            os: ubuntu-22.04
+            llvm: 21.1.8
+            portable: "ON"
+            compiler: gcc
+          - name: linux-latest
+            os: ubuntu-latest
+            llvm: 23.1.0
+            portable: "OFF"
+            compiler: clang
+          - name: ubuntu-26.04
+            os: ubuntu-26.04
+            llvm: 23.1.0
+            portable: "OFF"
+            compiler: gcc
+          - name: windows-baseline-vs2022
+            os: windows-2022
+            llvm: 21.1.8
+            portable: "OFF"
+            compiler: msvc
+          - name: windows-latest
+            os: windows-latest
+            llvm: 23.1.0
+            portable: "OFF"
+            compiler: msvc
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - id: llvm
+        uses: KyleMayes/install-llvm-action@ebc0426251bc40c7cd31162802432c68818ab8f0 # v2.0.9
+        with:
+          version: ${{ matrix.llvm }}
+      - name: Select LLVM Clang for forward Linux lane
+        if: matrix.compiler == 'clang'
+        shell: bash
+        run: |
+          echo "CC=$LLVM_PATH/bin/clang" >> "$GITHUB_ENV"
+          echo "CXX=$LLVM_PATH/bin/clang++" >> "$GITHUB_ENV"
+      - name: Configure
+        run: >-
+          cmake -S . -B build -DIREZ_BUILD_TESTS=ON
+          -DCMAKE_BUILD_TYPE=Release
+          -DIREZ_PORTABLE_LINUX=${{ matrix.portable }}
+          -DLLVM_DIR=${{ env.LLVM_PATH }}/lib/cmake/llvm
+      - name: Build
+        run: cmake --build build --config Release --parallel 2
+      - name: Test
+        run: ctest --test-dir build -C Release --output-on-failure
+      - name: End-to-end fixture ingest (Ubuntu 26.04)
+        if: matrix.name == 'ubuntu-26.04'
+        shell: bash
+        run: |
+          state="$RUNNER_TEMP/irez-e2e-state"
+          build/irez --state-dir "$state" init --name fixture
+          build/irez --state-dir "$state" ingest llvm fixtures/nonfloating.ll --index full
+          build/irez-llvm-index version
+
+  mcp:
+    name: MCP and installer / ${{ matrix.name }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: linux-baseline
+            os: ubuntu-22.04
+            cli: build/irez
+            mcp: mcp/target/debug/irez-mcp
+          - name: windows-baseline-vs2022
+            os: windows-2022
+            cli: build/Release/irez.exe
+            mcp: mcp/target/debug/irez-mcp.exe
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - id: llvm
+        uses: KyleMayes/install-llvm-action@ebc0426251bc40c7cd31162802432c68818ab8f0 # v2.0.9
+        with:
+          version: 21.1.8
+      - name: Install Rust MSRV
+        shell: bash
+        run: |
+          rustup toolchain install 1.88.0 --profile minimal
+          rustup default 1.88.0
+      - uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: ${{ runner.os }}-cargo-1.88-${{ hashFiles('mcp/Cargo.lock') }}
+      - name: Build test CLI
+        run: |
+          cmake -S . -B build -DIREZ_BUILD_TESTS=OFF -DCMAKE_BUILD_TYPE=Release -DLLVM_DIR=${{ env.LLVM_PATH }}/lib/cmake/llvm
+          cmake --build build --config Release --parallel 2
+      - name: Rust tests and real MCP smoke
+        working-directory: mcp
+        env:
+          IREZ_CLI: ${{ github.workspace }}/${{ matrix.cli }}
+        run: cargo test --locked
+      - name: OpenCode installer smoke (Linux)
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          export XDG_DATA_HOME="$RUNNER_TEMP/data"
+          export XDG_CONFIG_HOME="$RUNNER_TEMP/config"
+          state="$RUNNER_TEMP/state"
+          config="$RUNNER_TEMP/config/opencode/opencode.jsonc"
+          "${{ matrix.mcp }}" install opencode --cli "${{ matrix.cli }}" --state-dir "$state" --opencode-config "$config"
+          "${{ matrix.mcp }}" doctor opencode --cli "${{ matrix.cli }}" --state-dir "$state" --opencode-config "$config"
+          "${{ matrix.mcp }}" uninstall opencode --state-dir "$state" --opencode-config "$config"
+      - name: OpenCode installer smoke (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $env:LOCALAPPDATA = Join-Path $env:RUNNER_TEMP "local"
+          $env:APPDATA = Join-Path $env:RUNNER_TEMP "roaming"
+          $state = Join-Path $env:RUNNER_TEMP "state"
+          $config = Join-Path $env:RUNNER_TEMP "opencode\opencode.jsonc"
+          & "${{ matrix.mcp }}" install opencode --cli "${{ matrix.cli }}" --state-dir $state --opencode-config $config
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & "${{ matrix.mcp }}" doctor opencode --cli "${{ matrix.cli }}" --state-dir $state --opencode-config $config
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & "${{ matrix.mcp }}" uninstall opencode --state-dir $state --opencode-config $config
+          exit $LASTEXITCODE
+      - name: OpenCode installer smoke (Windows, default path)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          # No --opencode-config override: the default must resolve to
+          # %USERPROFILE%\.config\opencode\opencode.jsonc, never %APPDATA%.
+          $env:LOCALAPPDATA = Join-Path $env:RUNNER_TEMP "local2"
+          $env:APPDATA = Join-Path $env:RUNNER_TEMP "roaming2"
+          $env:USERPROFILE = Join-Path $env:RUNNER_TEMP "home2"
+          $env:HOME = $env:USERPROFILE
+          New-Item -ItemType Directory -Force $env:USERPROFILE | Out-Null
+          $state = Join-Path $env:RUNNER_TEMP "state2"
+          & "${{ matrix.mcp }}" install opencode --cli "${{ matrix.cli }}" --state-dir $state
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $expected = Join-Path $env:USERPROFILE ".config\opencode\opencode.jsonc"
+          if (-not (Test-Path $expected)) { Write-Error "default config missing at $expected"; exit 1 }
+          if (Test-Path (Join-Path $env:APPDATA "opencode\opencode.jsonc")) { Write-Error "config leaked into APPDATA"; exit 1 }
+          $skill = Join-Path $env:USERPROFILE ".config\opencode\skills\irez-investigation\SKILL.md"
+          if (-not (Test-Path $skill)) { Write-Error "default skill missing at $skill"; exit 1 }
+          & "${{ matrix.mcp }}" doctor opencode --cli "${{ matrix.cli }}" --state-dir $state
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & "${{ matrix.mcp }}" uninstall opencode --state-dir $state
+          exit $LASTEXITCODE

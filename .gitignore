@@ -1,0 +1,83 @@
+# ---- Build artifacts ----
+build/
+build-*/
+cmake-build-*/
+out/build/
+mcp/target/
+mcp/target-*/
+dist/
+.cache/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+CMakeUserPresets.json
+Testing/
+*.o
+*.obj
+*.a
+*.d
+*.lib
+*.exe
+*.dll
+*.so
+*.dylib
+*.pdb
+*.ilk
+*.exp
+
+# ---- Local runtime state (contains machine paths; never upload) ----
+state/
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+*.jsonl
+
+# ---- Local environment files (may contain credentials) ----
+.env
+.env.*
+!.env.example
+
+# ---- Experiment outputs (contain session logs and local absolute paths) ----
+experiments/
+
+# ---- Examples (excluded from version control per user request) ----
+examples/
+
+# ---- Logs and caches ----
+*.log
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage/
+htmlcov/
+*.gcda
+*.gcno
+*.gcov
+*.profraw
+*.profdata
+core
+core.[0-9]*
+
+# ---- Editor / IDE local configuration ----
+.vs/
+.vscode/
+.idea/
+*.user
+CMakeSettings.json
+scripts/_local-*
+*.swp
+*.swo
+*~
+*.tmp
+*.bak
+*.orig
+
+# ---- Operating system miscellany ----
+.DS_Store
+Thumbs.db

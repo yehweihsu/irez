@@ -1,0 +1,168 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version, without or with the v prefix"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    name: bundle / ${{ matrix.platform }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: linux-x86_64
+            os: ubuntu-22.04
+            llvm: 23.1.0
+            cpp_bin: build
+            mcp_bin: mcp/target/release/irez-mcp
+            python: python3
+          - platform: windows-x86_64
+            os: windows-2022
+            llvm: 23.1.0
+            cpp_bin: build/Release
+            mcp_bin: mcp/target/release/irez-mcp.exe
+            python: python
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - id: llvm
+        uses: KyleMayes/install-llvm-action@ebc0426251bc40c7cd31162802432c68818ab8f0 # v2.0.9
+        with:
+          version: ${{ matrix.llvm }}
+      - name: Install Rust MSRV
+        shell: bash
+        run: |
+          rustup toolchain install 1.88.0 --profile minimal
+          rustup default 1.88.0
+      - uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: release-${{ runner.os }}-cargo-1.88-${{ hashFiles('mcp/Cargo.lock') }}
+      - name: Configure release C++
+        run: >-
+          cmake -S . -B build -DIREZ_BUILD_TESTS=ON
+          -DCMAKE_BUILD_TYPE=Release
+          -DIREZ_PORTABLE_LINUX=ON -DIREZ_STATIC_MSVC_RUNTIME=ON
+          -DLLVM_DIR=${{ env.LLVM_PATH }}/lib/cmake/llvm
+      - name: Build and test C++
+        run: |
+          cmake --build build --config Release --parallel 2
+          ctest --test-dir build -C Release --output-on-failure
+      - name: Build and test MCP
+        working-directory: mcp
+        env:
+          IREZ_CLI: ${{ github.workspace }}/${{ matrix.cpp_bin }}/irez${{ runner.os == 'Windows' && '.exe' || '' }}
+        run: |
+          cargo test --locked
+          cargo build --release --locked
+      - name: Verify third-party notices
+        shell: bash
+        run: |
+          cargo metadata --manifest-path mcp/Cargo.toml --locked --format-version 1 > /dev/null
+          "${{ matrix.python }}" scripts/generate_third_party_notices.py --check
+      - name: Establish reproducible source timestamp
+        shell: bash
+        run: echo "SOURCE_DATE_EPOCH=$(git show -s --format=%ct HEAD)" >> "$GITHUB_ENV"
+      - name: Resolve version and package
+        shell: bash
+        run: |
+          version="${{ inputs.version || github.ref_name }}"
+          version="${version#v}"
+          "${{ matrix.python }}" scripts/package_release.py --platform "${{ matrix.platform }}" --version "$version" --cpp-bin "${{ matrix.cpp_bin }}" --mcp-bin "${{ matrix.mcp_bin }}" --output dist
+      - name: Linux ABI floor
+        if: runner.os == 'Linux'
+        run: |
+          python3 scripts/check_linux_abi.py --max-glibc 2.35 --require-static-gcc build/irez build/irez-llvm-index
+          python3 scripts/check_linux_abi.py --max-glibc 2.35 mcp/target/release/irez-mcp
+      - name: Verify bundle
+        shell: bash
+        run: >-
+          "${{ matrix.python }}" scripts/verify_release.py dist/*
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: irez-${{ matrix.platform }}
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    name: checksums, SBOM, provenance, and GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          path: dist
+          pattern: irez-*
+          merge-multiple: true
+      - name: Verify archives and generate SPDX SBOMs
+        run: |
+          mkdir unpacked
+          for archive in dist/*.tar.gz dist/*.zip; do
+            python3 scripts/verify_release.py "$archive"
+          done
+          tar -xzf dist/*linux-x86_64.tar.gz -C unpacked
+          unzip -q dist/*windows-x86_64.zip -d unpacked
+          for bundle in unpacked/irez-*; do
+            python3 scripts/generate_sbom.py --bundle "$bundle" --output "dist/$(basename "$bundle").spdx.json"
+          done
+          cd dist
+          sha256sum *.tar.gz *.zip *.spdx.json > SHA256SUMS
+      - name: Attest release provenance
+        if: github.event.repository.visibility == 'public' || vars.ENABLE_PRIVATE_ATTESTATIONS == 'true'
+        uses: actions/attest-build-provenance@a2bbfa25375fe432b6a289bc6b6cd05ecd0c4c32 # v4.1.0
+        with:
+          subject-path: |
+            dist/*.tar.gz
+            dist/*.zip
+            dist/*.spdx.json
+            dist/SHA256SUMS
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="${{ inputs.version || github.ref_name }}"
+          [[ "$tag" == v* ]] || tag="v$tag"
+          version="${tag#v}"
+          notes="$RUNNER_TEMP/release-notes.md"
+          python3 scripts/release_notes.py --version "$version" --output "$notes"
+          release_flags=()
+          if [[ "$version" == *-* ]]; then
+            release_flags+=(--prerelease)
+          fi
+          if ! gh release view "$tag" >/dev/null 2>&1; then
+            if [[ "${{ github.event_name }}" == "push" ]]; then
+              gh release create "$tag" --verify-tag --notes-file "$notes" "${release_flags[@]}"
+            else
+              gh release create "$tag" --target "${{ github.sha }}" --notes-file "$notes" "${release_flags[@]}"
+            fi
+          fi
+          gh release upload "$tag" dist/*.tar.gz dist/*.zip dist/*.spdx.json dist/SHA256SUMS --clobber

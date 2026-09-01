@@ -1,0 +1,4680 @@
+{
+  "artifacts": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [],
+      "command": "artifacts",
+      "diagnostics": [],
+      "evidence_refs": [],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": [
+        {
+          "adapter_id": "llvm-ir",
+          "adapter_version": "2",
+          "analysis_schema_version": 2,
+          "catalog_status": "catalog_ready",
+          "completed_index_level": "catalog",
+          "content_sha256": "5b72ac864e89465296fe1d0b0e24fd91de7b9c308bae791e7cf4dd799bd55fd5",
+          "dialect_version": "<LLVM_VERSION>",
+          "id": "artifact:5b72ac864e894652",
+          "kind": "llvm",
+          "media_type": "text/llvm",
+          "original_path": "<ROOT>/fixtures/nonfloating.ll",
+          "requested_index_level": "catalog",
+          "target_triple": "x86_64-unknown-linux-gnu"
+        }
+      ],
+      "schema_version": 1,
+      "target": null,
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "capabilities": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [],
+      "command": "capabilities",
+      "diagnostics": [],
+      "evidence_refs": [],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "cfg": {
+          "precision": "exact",
+          "status": "supported"
+        },
+        "control_dependence": {
+          "precision": "exact",
+          "status": "supported"
+        },
+        "direct_calls": {
+          "precision": "exact",
+          "status": "supported"
+        },
+        "entity_index": {
+          "precision": "exact",
+          "status": "supported"
+        },
+        "indirect_calls": {
+          "precision": "conservative",
+          "status": "partial"
+        },
+        "memory_dependencies": {
+          "status": "unsupported"
+        },
+        "operand_graph": {
+          "precision": "exact",
+          "status": "supported"
+        },
+        "path_conditions": {
+          "status": "unsupported"
+        },
+        "runtime_events": {
+          "status": "unsupported"
+        },
+        "source_mapping": {
+          "precision": "partial",
+          "status": "supported"
+        }
+      },
+      "schema_version": 1,
+      "target": "artifact:5b72ac864e894652",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "context-ret": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "source_mapping",
+          "precision": "partial",
+          "status": "supported"
+        }
+      ],
+      "command": "context",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "entity": {
+          "artifact_id": "artifact:5b72ac864e894652",
+          "attributes": {},
+          "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+          "exact_text": "  ret i32 %r, !dbg !17",
+          "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+          "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+          "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+          "kind": "instruction",
+          "llvm_type": "void",
+          "local_key": "inst:f1:7",
+          "materialization": "structure_ready",
+          "name": "",
+          "opcode": "ret",
+          "ordinal": 7,
+          "relations": [
+            {
+              "attributes_json": "{}",
+              "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+              "kind": "llvm.operand",
+              "modality": "must",
+              "ordinal": 0,
+              "precision": "exact",
+              "src_id": "irez:5b72ac864e894652:llvm:inst:f1:7"
+            }
+          ]
+        },
+        "observation": {
+          "reason": "no external runtime observation was provided",
+          "status": "unavailable"
+        },
+        "source": [
+          {
+            "column_no": 3,
+            "discriminator": 0,
+            "file": "/fixtures/nonfloating.c",
+            "inline_depth": 0,
+            "line": 9,
+            "scope_name": "choose"
+          }
+        ],
+        "value_graph": {
+          "budget_depth": 12,
+          "direction": "backward",
+          "nodes": [
+            {
+              "artifact_id": "artifact:5b72ac864e894652",
+              "attributes": {},
+              "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+              "exact_text": "  ret i32 %r, !dbg !17",
+              "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+              "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+              "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+              "kind": "instruction",
+              "llvm_type": "void",
+              "local_key": "inst:f1:7",
+              "materialization": "structure_ready",
+              "name": "",
+              "opcode": "ret",
+              "ordinal": 7
+            },
+            {
+              "artifact_id": "artifact:5b72ac864e894652",
+              "attributes": {
+                "call_attributes": "AttributeList[\n]\n",
+                "calling_convention": 0
+              },
+              "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+              "exact_text": "  %r = call i32 @external(i32 %v), !dbg !16",
+              "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+              "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+              "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+              "kind": "instruction",
+              "llvm_type": "i32",
+              "local_key": "inst:f1:6",
+              "materialization": "structure_ready",
+              "name": "r",
+              "opcode": "call",
+              "ordinal": 6
+            },
+            {
+              "artifact_id": "artifact:5b72ac864e894652",
+              "attributes": {},
+              "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+              "exact_text": "  %v = phi i32 [ %a, %yes ], [ %b, %no ], !dbg !15",
+              "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+              "handle": "irez:5b72ac864e894652:llvm:inst:f1:5",
+              "id": "irez:5b72ac864e894652:llvm:inst:f1:5",
+              "kind": "instruction",
+              "llvm_type": "i32",
+              "local_key": "inst:f1:5",
+              "materialization": "structure_ready",
+              "name": "v",
+              "opcode": "phi",
+              "ordinal": 5
+            },
+            {
+              "artifact_id": "artifact:5b72ac864e894652",
+              "attributes": {
+                "body_fingerprint": "",
+                "declaration": true,
+                "linkage": "0"
+              },
+              "block_id": null,
+              "exact_text": null,
+              "function_id": null,
+              "handle": "irez:5b72ac864e894652:llvm:function:f0",
+              "id": "irez:5b72ac864e894652:llvm:function:f0",
+              "kind": "function",
+              "llvm_type": "i32 (i32)",
+              "local_key": "function:f0",
+              "materialization": "declaration_only",
+              "name": "external",
+              "opcode": null,
+              "ordinal": 0
+            },
+            {
+              "artifact_id": "artifact:5b72ac864e894652",
+              "attributes": {
+                "nsw": true,
+                "nuw": false
+              },
+              "block_id": "irez:5b72ac864e894652:llvm:block:f1:1",
+              "exact_text": "  %a = add nsw i32 %x, 1, !dbg !11",
+              "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+              "handle": "irez:5b72ac864e894652:llvm:inst:f1:1",
+              "id": "irez:5b72ac864e894652:llvm:inst:f1:1",
+              "kind": "instruction",
+              "llvm_type": "i32",
+              "local_key": "inst:f1:1",
+              "materialization": "structure_ready",
+              "name": "a",
+              "opcode": "add",
+              "ordinal": 1
+            },
+            {
+              "artifact_id": "artifact:5b72ac864e894652",
+              "attributes": {
+                "nsw": true,
+                "nuw": false
+              },
+              "block_id": "irez:5b72ac864e894652:llvm:block:f1:2",
+              "exact_text": "  %b = sub nsw i32 %x, 1, !dbg !13",
+              "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+              "handle": "irez:5b72ac864e894652:llvm:inst:f1:3",
+              "id": "irez:5b72ac864e894652:llvm:inst:f1:3",
+              "kind": "instruction",
+              "llvm_type": "i32",
+              "local_key": "inst:f1:3",
+              "materialization": "structure_ready",
+              "name": "b",
+              "opcode": "sub",
+              "ordinal": 3
+            },
+            {
+              "artifact_id": "artifact:5b72ac864e894652",
+              "attributes": {},
+              "block_id": null,
+              "exact_text": "i32 %x",
+              "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+              "handle": "irez:5b72ac864e894652:llvm:arg:f1:0",
+              "id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+              "kind": "argument",
+              "llvm_type": "i32",
+              "local_key": "arg:f1:0",
+              "materialization": "structure_ready",
+              "name": "x",
+              "opcode": null,
+              "ordinal": 0
+            },
+            {
+              "artifact_id": "artifact:5b72ac864e894652",
+              "attributes": {},
+              "block_id": null,
+              "exact_text": "i32 1",
+              "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+              "handle": "irez:5b72ac864e894652:llvm:constant:f1:0",
+              "id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+              "kind": "constant",
+              "llvm_type": "i32",
+              "local_key": "constant:f1:0",
+              "materialization": "structure_ready",
+              "name": "",
+              "opcode": null,
+              "ordinal": null
+            }
+          ],
+          "relations": [
+            {
+              "attributes": {},
+              "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+              "kind": "llvm.operand",
+              "modality": "must",
+              "ordinal": 0,
+              "precision": "exact",
+              "src_id": "irez:5b72ac864e894652:llvm:inst:f1:7"
+            },
+            {
+              "attributes": {},
+              "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:5",
+              "kind": "llvm.operand",
+              "modality": "must",
+              "ordinal": 0,
+              "precision": "exact",
+              "src_id": "irez:5b72ac864e894652:llvm:inst:f1:6"
+            },
+            {
+              "attributes": {},
+              "dst_id": "irez:5b72ac864e894652:llvm:function:f0",
+              "kind": "llvm.operand",
+              "modality": "must",
+              "ordinal": 1,
+              "precision": "exact",
+              "src_id": "irez:5b72ac864e894652:llvm:inst:f1:6"
+            },
+            {
+              "attributes": {
+                "incoming_block": "block:f1:1"
+              },
+              "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:1",
+              "kind": "llvm.operand",
+              "modality": "must",
+              "ordinal": 0,
+              "precision": "exact",
+              "src_id": "irez:5b72ac864e894652:llvm:inst:f1:5"
+            },
+            {
+              "attributes": {
+                "incoming_block": "block:f1:2"
+              },
+              "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:3",
+              "kind": "llvm.operand",
+              "modality": "must",
+              "ordinal": 1,
+              "precision": "exact",
+              "src_id": "irez:5b72ac864e894652:llvm:inst:f1:5"
+            },
+            {
+              "attributes": {},
+              "dst_id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+              "kind": "llvm.operand",
+              "modality": "must",
+              "ordinal": 0,
+              "precision": "exact",
+              "src_id": "irez:5b72ac864e894652:llvm:inst:f1:1"
+            },
+            {
+              "attributes": {},
+              "dst_id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+              "kind": "llvm.operand",
+              "modality": "must",
+              "ordinal": 1,
+              "precision": "exact",
+              "src_id": "irez:5b72ac864e894652:llvm:inst:f1:1"
+            },
+            {
+              "attributes": {},
+              "dst_id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+              "kind": "llvm.operand",
+              "modality": "must",
+              "ordinal": 0,
+              "precision": "exact",
+              "src_id": "irez:5b72ac864e894652:llvm:inst:f1:3"
+            },
+            {
+              "attributes": {},
+              "dst_id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+              "kind": "llvm.operand",
+              "modality": "must",
+              "ordinal": 1,
+              "precision": "exact",
+              "src_id": "irez:5b72ac864e894652:llvm:inst:f1:3"
+            }
+          ]
+        }
+      },
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:inst:f1:7",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 8
+      },
+      "unknowns": [
+        {
+          "kind": "runtime_observation",
+          "status": "unavailable"
+        }
+      ]
+    }
+  },
+  "expand-external": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "direct_calls",
+          "precision": "exact",
+          "status": "supported"
+        }
+      ],
+      "command": "expand",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "effects": "unknown",
+        "expandable": false,
+        "status": "external"
+      },
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:inst:f1:6",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "expand-internal-call": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [],
+      "command": "expand",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:c4a5c4e103034423",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "cached": false,
+        "entities": 6,
+        "relations": 7,
+        "status": "structure_ready"
+      },
+      "schema_version": 1,
+      "target": "irez:c4a5c4e103034423:llvm:function:f0",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "functions": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [],
+      "command": "functions",
+      "diagnostics": [],
+      "evidence_refs": [],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": [
+        {
+          "attributes": {
+            "body_fingerprint": "",
+            "declaration": true,
+            "linkage": "0"
+          },
+          "handle": "irez:5b72ac864e894652:llvm:function:f0",
+          "id": "irez:5b72ac864e894652:llvm:function:f0",
+          "llvm_type": "i32 (i32)",
+          "name": "external",
+          "ordinal": 0,
+          "status": "declaration_only"
+        },
+        {
+          "attributes": {
+            "body_fingerprint": "1EB23FFB40D783FD515876D58BF6C9235EE356CC78F37C1FE52E4C93AAEC1B7A",
+            "declaration": false,
+            "linkage": "0"
+          },
+          "handle": "irez:5b72ac864e894652:llvm:function:f1",
+          "id": "irez:5b72ac864e894652:llvm:function:f1",
+          "llvm_type": "i32 (i32, i1)",
+          "name": "choose",
+          "ordinal": 1,
+          "status": "catalog_only"
+        }
+      ],
+      "schema_version": 1,
+      "target": "artifact:5b72ac864e894652",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "functions-bad-regex": {
+    "exit_code": 5,
+    "stderr": {
+      "api_schema_version": 1,
+      "error": "invalid match pattern: not a valid ECMAScript regular expression",
+      "error_kind": "state_error",
+      "exit_code": 5,
+      "schema_version": 1
+    },
+    "stdout": null
+  },
+  "functions-match": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [],
+      "command": "functions",
+      "diagnostics": [],
+      "evidence_refs": [],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": [
+        {
+          "attributes": {
+            "body_fingerprint": "1EB23FFB40D783FD515876D58BF6C9235EE356CC78F37C1FE52E4C93AAEC1B7A",
+            "declaration": false,
+            "linkage": "0"
+          },
+          "handle": "irez:5b72ac864e894652:llvm:function:f1",
+          "id": "irez:5b72ac864e894652:llvm:function:f1",
+          "llvm_type": "i32 (i32, i1)",
+          "name": "choose",
+          "ordinal": 1,
+          "status": "catalog_only"
+        }
+      ],
+      "schema_version": 1,
+      "target": "artifact:5b72ac864e894652",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "graph-exact-ir": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        }
+      ],
+      "command": "graph",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": [
+        {
+          "exact_ir": "  ret i32 %r, !dbg !17",
+          "handle": "irez:5b72ac864e894652:llvm:inst:f1:7"
+        },
+        {
+          "exact_ir": "  %r = call i32 @external(i32 %v), !dbg !16",
+          "handle": "irez:5b72ac864e894652:llvm:inst:f1:6"
+        },
+        {
+          "exact_ir": "  %v = phi i32 [ %a, %yes ], [ %b, %no ], !dbg !15",
+          "handle": "irez:5b72ac864e894652:llvm:inst:f1:5"
+        },
+        {
+          "exact_ir": null,
+          "handle": "irez:5b72ac864e894652:llvm:function:f0"
+        },
+        {
+          "exact_ir": "  %a = add nsw i32 %x, 1, !dbg !11",
+          "handle": "irez:5b72ac864e894652:llvm:inst:f1:1"
+        },
+        {
+          "exact_ir": "  %b = sub nsw i32 %x, 1, !dbg !13",
+          "handle": "irez:5b72ac864e894652:llvm:inst:f1:3"
+        },
+        {
+          "exact_ir": "i32 %x",
+          "handle": "irez:5b72ac864e894652:llvm:arg:f1:0"
+        },
+        {
+          "exact_ir": "i32 1",
+          "handle": "irez:5b72ac864e894652:llvm:constant:f1:0"
+        }
+      ],
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:inst:f1:7",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 8
+      },
+      "unknowns": []
+    }
+  },
+  "graph-ret": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        }
+      ],
+      "command": "graph",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "budget_depth": 12,
+        "direction": "backward",
+        "nodes": [
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {},
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+            "exact_text": "  ret i32 %r, !dbg !17",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+            "kind": "instruction",
+            "llvm_type": "void",
+            "local_key": "inst:f1:7",
+            "materialization": "structure_ready",
+            "name": "",
+            "opcode": "ret",
+            "ordinal": 7
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {
+              "call_attributes": "AttributeList[\n]\n",
+              "calling_convention": 0
+            },
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+            "exact_text": "  %r = call i32 @external(i32 %v), !dbg !16",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+            "kind": "instruction",
+            "llvm_type": "i32",
+            "local_key": "inst:f1:6",
+            "materialization": "structure_ready",
+            "name": "r",
+            "opcode": "call",
+            "ordinal": 6
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {},
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+            "exact_text": "  %v = phi i32 [ %a, %yes ], [ %b, %no ], !dbg !15",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:5",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:5",
+            "kind": "instruction",
+            "llvm_type": "i32",
+            "local_key": "inst:f1:5",
+            "materialization": "structure_ready",
+            "name": "v",
+            "opcode": "phi",
+            "ordinal": 5
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {
+              "body_fingerprint": "",
+              "declaration": true,
+              "linkage": "0"
+            },
+            "block_id": null,
+            "exact_text": null,
+            "function_id": null,
+            "handle": "irez:5b72ac864e894652:llvm:function:f0",
+            "id": "irez:5b72ac864e894652:llvm:function:f0",
+            "kind": "function",
+            "llvm_type": "i32 (i32)",
+            "local_key": "function:f0",
+            "materialization": "declaration_only",
+            "name": "external",
+            "opcode": null,
+            "ordinal": 0
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {
+              "nsw": true,
+              "nuw": false
+            },
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:1",
+            "exact_text": "  %a = add nsw i32 %x, 1, !dbg !11",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:1",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:1",
+            "kind": "instruction",
+            "llvm_type": "i32",
+            "local_key": "inst:f1:1",
+            "materialization": "structure_ready",
+            "name": "a",
+            "opcode": "add",
+            "ordinal": 1
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {
+              "nsw": true,
+              "nuw": false
+            },
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:2",
+            "exact_text": "  %b = sub nsw i32 %x, 1, !dbg !13",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:3",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:3",
+            "kind": "instruction",
+            "llvm_type": "i32",
+            "local_key": "inst:f1:3",
+            "materialization": "structure_ready",
+            "name": "b",
+            "opcode": "sub",
+            "ordinal": 3
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {},
+            "block_id": null,
+            "exact_text": "i32 %x",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:arg:f1:0",
+            "id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+            "kind": "argument",
+            "llvm_type": "i32",
+            "local_key": "arg:f1:0",
+            "materialization": "structure_ready",
+            "name": "x",
+            "opcode": null,
+            "ordinal": 0
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {},
+            "block_id": null,
+            "exact_text": "i32 1",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:constant:f1:0",
+            "id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+            "kind": "constant",
+            "llvm_type": "i32",
+            "local_key": "constant:f1:0",
+            "materialization": "structure_ready",
+            "name": "",
+            "opcode": null,
+            "ordinal": null
+          }
+        ],
+        "relations": [
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 0,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:7"
+          },
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:5",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 0,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:6"
+          },
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:function:f0",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 1,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:6"
+          },
+          {
+            "attributes": {
+              "incoming_block": "block:f1:1"
+            },
+            "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:1",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 0,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:5"
+          },
+          {
+            "attributes": {
+              "incoming_block": "block:f1:2"
+            },
+            "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:3",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 1,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:5"
+          },
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 0,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:1"
+          },
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 1,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:1"
+          },
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 0,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:3"
+          },
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 1,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:3"
+          }
+        ]
+      },
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:inst:f1:7",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 8
+      },
+      "unknowns": []
+    }
+  },
+  "guards-phi": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "control_guards",
+          "precision": "exact",
+          "status": "supported"
+        }
+      ],
+      "command": "guards",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": [],
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:inst:f1:5",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "ingest-dedup": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "cfg",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "control_dependence",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "direct_calls",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "entity_index",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "indirect_calls",
+          "precision": "conservative",
+          "status": "partial"
+        },
+        {
+          "name": "memory_dependencies",
+          "status": "unsupported"
+        },
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "path_conditions",
+          "status": "unsupported"
+        },
+        {
+          "name": "runtime_events",
+          "status": "unsupported"
+        },
+        {
+          "name": "source_mapping",
+          "precision": "partial",
+          "status": "supported"
+        }
+      ],
+      "command": "ingest",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "artifact": "artifact:5b72ac864e894652",
+        "deduplicated": true,
+        "function_count": 2,
+        "index": "catalog",
+        "refreshed": false,
+        "state_dir": "<STATE>"
+      },
+      "schema_version": 1,
+      "target": "artifact:5b72ac864e894652",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "ingest-globals": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "cfg",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "control_dependence",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "direct_calls",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "entity_index",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "indirect_calls",
+          "precision": "conservative",
+          "status": "partial"
+        },
+        {
+          "name": "memory_dependencies",
+          "status": "unsupported"
+        },
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "path_conditions",
+          "status": "unsupported"
+        },
+        {
+          "name": "runtime_events",
+          "status": "unsupported"
+        },
+        {
+          "name": "source_mapping",
+          "precision": "partial",
+          "status": "supported"
+        }
+      ],
+      "command": "ingest",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:b44d8fa9e9e90810"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "artifact": "artifact:b44d8fa9e9e90810",
+        "deduplicated": false,
+        "function_count": 2,
+        "index": "full",
+        "refreshed": true,
+        "state_dir": "<STATE>"
+      },
+      "schema_version": 1,
+      "target": "artifact:b44d8fa9e9e90810",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "ingest-internal-call": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "cfg",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "control_dependence",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "direct_calls",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "entity_index",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "indirect_calls",
+          "precision": "conservative",
+          "status": "partial"
+        },
+        {
+          "name": "memory_dependencies",
+          "status": "unsupported"
+        },
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "path_conditions",
+          "status": "unsupported"
+        },
+        {
+          "name": "runtime_events",
+          "status": "unsupported"
+        },
+        {
+          "name": "source_mapping",
+          "precision": "partial",
+          "status": "supported"
+        }
+      ],
+      "command": "ingest",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:c4a5c4e103034423"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "artifact": "artifact:c4a5c4e103034423",
+        "deduplicated": false,
+        "function_count": 2,
+        "index": "catalog",
+        "refreshed": true,
+        "state_dir": "<STATE>"
+      },
+      "schema_version": 1,
+      "target": "artifact:c4a5c4e103034423",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "ingest-malformed-ir": {
+    "exit_code": 4,
+    "stderr": {
+      "api_schema_version": 1,
+      "error": "irez-llvm-index: <STATE>\\artifacts/llvm/f27fdc70b71efec341abf4e872429143a290455306d73c20e462031d4c8aa8db.ll:1:1: error: expected top-level entity\nthis is not llvm ir at all\n^\n",
+      "error_kind": "adapter_failure",
+      "exit_code": 4,
+      "schema_version": 1
+    },
+    "stdout": null
+  },
+  "ingest-nonfloating": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "cfg",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "control_dependence",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "direct_calls",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "entity_index",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "indirect_calls",
+          "precision": "conservative",
+          "status": "partial"
+        },
+        {
+          "name": "memory_dependencies",
+          "status": "unsupported"
+        },
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "path_conditions",
+          "status": "unsupported"
+        },
+        {
+          "name": "runtime_events",
+          "status": "unsupported"
+        },
+        {
+          "name": "source_mapping",
+          "precision": "partial",
+          "status": "supported"
+        }
+      ],
+      "command": "ingest",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "artifact": "artifact:5b72ac864e894652",
+        "deduplicated": false,
+        "function_count": 2,
+        "index": "catalog",
+        "refreshed": true,
+        "state_dir": "<STATE>"
+      },
+      "schema_version": 1,
+      "target": "artifact:5b72ac864e894652",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "ingest-store-kernel": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "cfg",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "control_dependence",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "direct_calls",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "entity_index",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "indirect_calls",
+          "precision": "conservative",
+          "status": "partial"
+        },
+        {
+          "name": "memory_dependencies",
+          "status": "unsupported"
+        },
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "path_conditions",
+          "status": "unsupported"
+        },
+        {
+          "name": "runtime_events",
+          "status": "unsupported"
+        },
+        {
+          "name": "source_mapping",
+          "precision": "partial",
+          "status": "supported"
+        }
+      ],
+      "command": "ingest",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:62cc76926c23142d"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "artifact": "artifact:62cc76926c23142d",
+        "deduplicated": false,
+        "function_count": 1,
+        "index": "full",
+        "refreshed": true,
+        "state_dir": "<STATE>"
+      },
+      "schema_version": 1,
+      "target": "artifact:62cc76926c23142d",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "ingest-unsupported-txt": {
+    "exit_code": 6,
+    "stderr": {
+      "api_schema_version": 1,
+      "error": "only .ll and .bc artifacts are supported",
+      "error_kind": "unsupported",
+      "exit_code": 6,
+      "schema_version": 1
+    },
+    "stdout": null
+  },
+  "init": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [],
+      "command": "init",
+      "diagnostics": [],
+      "evidence_refs": [],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "name": "golden",
+        "state_dir": "<STATE>"
+      },
+      "schema_version": 1,
+      "target": null,
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "materialize-cached": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [],
+      "command": "materialize",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "cached": true,
+        "status": "structure_ready"
+      },
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:function:f1",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "materialize-caller": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [],
+      "command": "materialize",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:c4a5c4e103034423",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "cached": false,
+        "entities": 5,
+        "relations": 8,
+        "status": "structure_ready"
+      },
+      "schema_version": 1,
+      "target": "irez:c4a5c4e103034423:llvm:function:f1",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "materialize-choose": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [],
+      "command": "materialize",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "cached": false,
+        "entities": 16,
+        "relations": 35,
+        "status": "structure_ready"
+      },
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:function:f1",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "not-found": {
+    "exit_code": 3,
+    "stderr": {
+      "api_schema_version": 1,
+      "error": "entity not found",
+      "error_kind": "not_found",
+      "exit_code": 3,
+      "schema_version": 1
+    },
+    "stdout": null
+  },
+  "show-function": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "direct_calls",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "cfg",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "entity_index",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "control_dependence",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        }
+      ],
+      "command": "show",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "counts": {
+          "blocks": 4,
+          "calls": 1,
+          "instructions": 8,
+          "returns": 1
+        },
+        "declaration": false,
+        "handle": "irez:5b72ac864e894652:llvm:function:f1",
+        "id": "irez:5b72ac864e894652:llvm:function:f1",
+        "kind": "function",
+        "materialization": "structure_ready",
+        "name": "choose",
+        "signature": "i32 (i32, i1)",
+        "source_summary": {
+          "files": [
+            "/fixtures/nonfloating.c"
+          ],
+          "locations": 8
+        }
+      },
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:function:f1",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "show-function-exact": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "entity_index",
+          "precision": "exact",
+          "status": "supported"
+        }
+      ],
+      "command": "show",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "artifact_id": "artifact:5b72ac864e894652",
+        "attributes": {},
+        "block_id": null,
+        "exact_text": "define i32 @choose(i32 %x, i1 %cond) !dbg !5 {\nentry:\n  br i1 %cond, label %yes, label %no, !dbg !10\n\nyes:                                              ; preds = %entry\n  %a = add nsw i32 %x, 1, !dbg !11\n  br label %merge, !dbg !12\n\nno:                                               ; preds = %entry\n  %b = sub nsw i32 %x, 1, !dbg !13\n  br label %merge, !dbg !14\n\nmerge:                                            ; preds = %no, %yes\n  %v = phi i32 [ %a, %yes ], [ %b, %no ], !dbg !15\n  %r = call i32 @external(i32 %v), !dbg !16\n  ret i32 %r, !dbg !17\n}\n",
+        "function_id": null,
+        "handle": "irez:5b72ac864e894652:llvm:function:f1",
+        "id": "irez:5b72ac864e894652:llvm:function:f1",
+        "kind": "function",
+        "llvm_type": "i32 (i32, i1)",
+        "local_key": "function:f1",
+        "materialization": "structure_ready",
+        "name": "choose",
+        "opcode": null,
+        "ordinal": 1,
+        "relations": [
+          {
+            "attributes_json": "{}",
+            "dst_id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+            "kind": "llvm.contains",
+            "modality": "must",
+            "ordinal": null,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:function:f1"
+          },
+          {
+            "attributes_json": "{}",
+            "dst_id": "irez:5b72ac864e894652:llvm:arg:f1:1",
+            "kind": "llvm.contains",
+            "modality": "must",
+            "ordinal": null,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:function:f1"
+          },
+          {
+            "attributes_json": "{}",
+            "dst_id": "irez:5b72ac864e894652:llvm:block:f1:0",
+            "kind": "llvm.contains",
+            "modality": "must",
+            "ordinal": null,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:function:f1"
+          },
+          {
+            "attributes_json": "{}",
+            "dst_id": "irez:5b72ac864e894652:llvm:block:f1:1",
+            "kind": "llvm.contains",
+            "modality": "must",
+            "ordinal": null,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:function:f1"
+          },
+          {
+            "attributes_json": "{}",
+            "dst_id": "irez:5b72ac864e894652:llvm:block:f1:2",
+            "kind": "llvm.contains",
+            "modality": "must",
+            "ordinal": null,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:function:f1"
+          },
+          {
+            "attributes_json": "{}",
+            "dst_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+            "kind": "llvm.contains",
+            "modality": "must",
+            "ordinal": null,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:function:f1"
+          }
+        ]
+      },
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:function:f1",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "show-function-returns": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [],
+      "command": "show",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "function": "irez:5b72ac864e894652:llvm:function:f1",
+        "items": [
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {},
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+            "exact_text": "  ret i32 %r, !dbg !17",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+            "kind": "instruction",
+            "llvm_type": "void",
+            "local_key": "inst:f1:7",
+            "materialization": "structure_ready",
+            "name": "",
+            "opcode": "ret",
+            "ordinal": 7
+          }
+        ],
+        "kind": "return"
+      },
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:function:f1",
+      "truncation": {
+        "budget_nodes": 5,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "show-helper-after-expand": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "entity_index",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        }
+      ],
+      "command": "show",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:c4a5c4e103034423",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "counts": {
+          "blocks": 1,
+          "calls": 0,
+          "instructions": 2,
+          "returns": 1
+        },
+        "declaration": false,
+        "handle": "irez:c4a5c4e103034423:llvm:function:f0",
+        "id": "irez:c4a5c4e103034423:llvm:function:f0",
+        "kind": "function",
+        "materialization": "structure_ready",
+        "name": "helper",
+        "signature": "i32 (i32)",
+        "source_summary": {
+          "files": [],
+          "locations": 0
+        }
+      },
+      "schema_version": 1,
+      "target": "irez:c4a5c4e103034423:llvm:function:f0",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "show-ret": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        }
+      ],
+      "command": "show",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "artifact_id": "artifact:5b72ac864e894652",
+        "attributes": {},
+        "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+        "exact_text": "  ret i32 %r, !dbg !17",
+        "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+        "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+        "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+        "kind": "instruction",
+        "llvm_type": "void",
+        "local_key": "inst:f1:7",
+        "materialization": "structure_ready",
+        "name": "",
+        "opcode": "ret",
+        "ordinal": 7,
+        "relations": [
+          {
+            "attributes_json": "{}",
+            "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 0,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:7"
+          }
+        ]
+      },
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:inst:f1:7",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "slice-declaration": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        }
+      ],
+      "command": "slice",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "budget_depth": 12,
+        "direction": "backward",
+        "nodes": [
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {
+              "body_fingerprint": "",
+              "declaration": true,
+              "linkage": "0"
+            },
+            "block_id": null,
+            "exact_text": null,
+            "function_id": null,
+            "handle": "irez:5b72ac864e894652:llvm:function:f0",
+            "id": "irez:5b72ac864e894652:llvm:function:f0",
+            "kind": "function",
+            "llvm_type": "i32 (i32)",
+            "local_key": "function:f0",
+            "materialization": "declaration_only",
+            "name": "external",
+            "opcode": null,
+            "ordinal": 0
+          }
+        ],
+        "relations": []
+      },
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:function:f0",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 1
+      },
+      "unknowns": [
+        {
+          "reason": "function has no completed control-dependence capability; reindex with a CD-capable adapter",
+          "relation": "llvm.control-dependence",
+          "status": "unsupported"
+        }
+      ]
+    }
+  },
+  "slice-default": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "control_dependence",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        }
+      ],
+      "command": "slice",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "budget_depth": 12,
+        "direction": "backward",
+        "nodes": [
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {},
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+            "exact_text": "  ret i32 %r, !dbg !17",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+            "kind": "instruction",
+            "llvm_type": "void",
+            "local_key": "inst:f1:7",
+            "materialization": "structure_ready",
+            "name": "",
+            "opcode": "ret",
+            "ordinal": 7
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {
+              "call_attributes": "AttributeList[\n]\n",
+              "calling_convention": 0
+            },
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+            "exact_text": "  %r = call i32 @external(i32 %v), !dbg !16",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+            "kind": "instruction",
+            "llvm_type": "i32",
+            "local_key": "inst:f1:6",
+            "materialization": "structure_ready",
+            "name": "r",
+            "opcode": "call",
+            "ordinal": 6
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {},
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+            "exact_text": "  %v = phi i32 [ %a, %yes ], [ %b, %no ], !dbg !15",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:5",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:5",
+            "kind": "instruction",
+            "llvm_type": "i32",
+            "local_key": "inst:f1:5",
+            "materialization": "structure_ready",
+            "name": "v",
+            "opcode": "phi",
+            "ordinal": 5
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {
+              "body_fingerprint": "",
+              "declaration": true,
+              "linkage": "0"
+            },
+            "block_id": null,
+            "exact_text": null,
+            "function_id": null,
+            "handle": "irez:5b72ac864e894652:llvm:function:f0",
+            "id": "irez:5b72ac864e894652:llvm:function:f0",
+            "kind": "function",
+            "llvm_type": "i32 (i32)",
+            "local_key": "function:f0",
+            "materialization": "declaration_only",
+            "name": "external",
+            "opcode": null,
+            "ordinal": 0
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {
+              "nsw": true,
+              "nuw": false
+            },
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:1",
+            "exact_text": "  %a = add nsw i32 %x, 1, !dbg !11",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:1",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:1",
+            "kind": "instruction",
+            "llvm_type": "i32",
+            "local_key": "inst:f1:1",
+            "materialization": "structure_ready",
+            "name": "a",
+            "opcode": "add",
+            "ordinal": 1
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {
+              "nsw": true,
+              "nuw": false
+            },
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:2",
+            "exact_text": "  %b = sub nsw i32 %x, 1, !dbg !13",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:3",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:3",
+            "kind": "instruction",
+            "llvm_type": "i32",
+            "local_key": "inst:f1:3",
+            "materialization": "structure_ready",
+            "name": "b",
+            "opcode": "sub",
+            "ordinal": 3
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {},
+            "block_id": null,
+            "exact_text": "i32 %x",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:arg:f1:0",
+            "id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+            "kind": "argument",
+            "llvm_type": "i32",
+            "local_key": "arg:f1:0",
+            "materialization": "structure_ready",
+            "name": "x",
+            "opcode": null,
+            "ordinal": 0
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {},
+            "block_id": null,
+            "exact_text": "i32 1",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:constant:f1:0",
+            "id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+            "kind": "constant",
+            "llvm_type": "i32",
+            "local_key": "constant:f1:0",
+            "materialization": "structure_ready",
+            "name": "",
+            "opcode": null,
+            "ordinal": null
+          }
+        ],
+        "relations": [
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 0,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:7"
+          },
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:5",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 0,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:6"
+          },
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:function:f0",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 1,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:6"
+          },
+          {
+            "attributes": {
+              "incoming_block": "block:f1:1"
+            },
+            "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:1",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 0,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:5"
+          },
+          {
+            "attributes": {
+              "incoming_block": "block:f1:2"
+            },
+            "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:3",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 1,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:5"
+          },
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 0,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:1"
+          },
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 1,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:1"
+          },
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 0,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:3"
+          },
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 1,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:3"
+          }
+        ]
+      },
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:inst:f1:7",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 8
+      },
+      "unknowns": []
+    }
+  },
+  "slice-depth1": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [
+        "irez:5b72ac864e894652:llvm:function:f0",
+        "irez:5b72ac864e894652:llvm:inst:f1:5"
+      ],
+      "capabilities_used": [
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        }
+      ],
+      "command": "slice",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [
+        "irez:5b72ac864e894652:llvm:function:f0",
+        "irez:5b72ac864e894652:llvm:inst:f1:5"
+      ],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "budget_depth": 1,
+        "direction": "backward",
+        "nodes": [
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {},
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+            "exact_text": "  ret i32 %r, !dbg !17",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+            "kind": "instruction",
+            "llvm_type": "void",
+            "local_key": "inst:f1:7",
+            "materialization": "structure_ready",
+            "name": "",
+            "opcode": "ret",
+            "ordinal": 7
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {
+              "call_attributes": "AttributeList[\n]\n",
+              "calling_convention": 0
+            },
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+            "exact_text": "  %r = call i32 @external(i32 %v), !dbg !16",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+            "kind": "instruction",
+            "llvm_type": "i32",
+            "local_key": "inst:f1:6",
+            "materialization": "structure_ready",
+            "name": "r",
+            "opcode": "call",
+            "ordinal": 6
+          }
+        ],
+        "relations": [
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 0,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:7"
+          }
+        ]
+      },
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:inst:f1:7",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": "depth_budget",
+        "truncated": true,
+        "visited_nodes": 2
+      },
+      "unknowns": []
+    }
+  },
+  "slice-global-backward": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "entity_index",
+          "precision": "exact",
+          "status": "supported"
+        }
+      ],
+      "command": "slice",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:b44d8fa9e9e90810"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "budget_depth": 12,
+        "direction": "backward",
+        "nodes": [
+          {
+            "artifact_id": "artifact:b44d8fa9e9e90810",
+            "attributes": {},
+            "block_id": null,
+            "exact_text": "@g = global i32 0",
+            "function_id": null,
+            "handle": "irez:b44d8fa9e9e90810:llvm:global:g0",
+            "id": "irez:b44d8fa9e9e90810:llvm:global:g0",
+            "kind": "global",
+            "llvm_type": "ptr",
+            "local_key": "global:g0",
+            "materialization": "structure_ready",
+            "name": "g",
+            "opcode": null,
+            "ordinal": null
+          }
+        ],
+        "relations": []
+      },
+      "schema_version": 1,
+      "target": "irez:b44d8fa9e9e90810:llvm:global:g0",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 1
+      },
+      "unknowns": [
+        {
+          "hint": "use uses/show for the direct neighbors of module-scoped entities",
+          "kind": "scope",
+          "reason": "slice traversal is function-scoped; this entity belongs to no function, so only the target node is returned and no relations are traversed",
+          "status": "unsupported"
+        }
+      ]
+    }
+  },
+  "slice-global-forward": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        }
+      ],
+      "command": "slice",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:b44d8fa9e9e90810"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "budget_depth": 12,
+        "direction": "forward",
+        "nodes": [
+          {
+            "artifact_id": "artifact:b44d8fa9e9e90810",
+            "attributes": {},
+            "block_id": null,
+            "exact_text": "@g = global i32 0",
+            "function_id": null,
+            "handle": "irez:b44d8fa9e9e90810:llvm:global:g0",
+            "id": "irez:b44d8fa9e9e90810:llvm:global:g0",
+            "kind": "global",
+            "llvm_type": "ptr",
+            "local_key": "global:g0",
+            "materialization": "structure_ready",
+            "name": "g",
+            "opcode": null,
+            "ordinal": null
+          }
+        ],
+        "relations": []
+      },
+      "schema_version": 1,
+      "target": "irez:b44d8fa9e9e90810:llvm:global:g0",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 1
+      },
+      "unknowns": [
+        {
+          "hint": "use uses/show for the direct neighbors of module-scoped entities",
+          "kind": "scope",
+          "reason": "slice traversal is function-scoped; this entity belongs to no function, so only the target node is returned and no relations are traversed",
+          "status": "unsupported"
+        },
+        {
+          "reason": "function has no completed control-dependence capability; reindex with a CD-capable adapter",
+          "relation": "llvm.control-dependence",
+          "status": "unsupported"
+        }
+      ]
+    }
+  },
+  "slice-nodes2": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [
+        "irez:5b72ac864e894652:llvm:function:f0",
+        "irez:5b72ac864e894652:llvm:inst:f1:5"
+      ],
+      "capabilities_used": [
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        }
+      ],
+      "command": "slice",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [
+        "irez:5b72ac864e894652:llvm:function:f0",
+        "irez:5b72ac864e894652:llvm:inst:f1:5"
+      ],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "budget_depth": 12,
+        "direction": "backward",
+        "nodes": [
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {},
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+            "exact_text": "  ret i32 %r, !dbg !17",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+            "kind": "instruction",
+            "llvm_type": "void",
+            "local_key": "inst:f1:7",
+            "materialization": "structure_ready",
+            "name": "",
+            "opcode": "ret",
+            "ordinal": 7
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {
+              "call_attributes": "AttributeList[\n]\n",
+              "calling_convention": 0
+            },
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+            "exact_text": "  %r = call i32 @external(i32 %v), !dbg !16",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+            "kind": "instruction",
+            "llvm_type": "i32",
+            "local_key": "inst:f1:6",
+            "materialization": "structure_ready",
+            "name": "r",
+            "opcode": "call",
+            "ordinal": 6
+          }
+        ],
+        "relations": [
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 0,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:7"
+          }
+        ]
+      },
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:inst:f1:7",
+      "truncation": {
+        "budget_nodes": 2,
+        "reason": "node_budget",
+        "truncated": true,
+        "visited_nodes": 2
+      },
+      "unknowns": []
+    }
+  },
+  "slice-operand": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        }
+      ],
+      "command": "slice",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "budget_depth": 12,
+        "direction": "backward",
+        "nodes": [
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {},
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+            "exact_text": "  ret i32 %r, !dbg !17",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+            "kind": "instruction",
+            "llvm_type": "void",
+            "local_key": "inst:f1:7",
+            "materialization": "structure_ready",
+            "name": "",
+            "opcode": "ret",
+            "ordinal": 7
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {
+              "call_attributes": "AttributeList[\n]\n",
+              "calling_convention": 0
+            },
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+            "exact_text": "  %r = call i32 @external(i32 %v), !dbg !16",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+            "kind": "instruction",
+            "llvm_type": "i32",
+            "local_key": "inst:f1:6",
+            "materialization": "structure_ready",
+            "name": "r",
+            "opcode": "call",
+            "ordinal": 6
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {},
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+            "exact_text": "  %v = phi i32 [ %a, %yes ], [ %b, %no ], !dbg !15",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:5",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:5",
+            "kind": "instruction",
+            "llvm_type": "i32",
+            "local_key": "inst:f1:5",
+            "materialization": "structure_ready",
+            "name": "v",
+            "opcode": "phi",
+            "ordinal": 5
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {
+              "body_fingerprint": "",
+              "declaration": true,
+              "linkage": "0"
+            },
+            "block_id": null,
+            "exact_text": null,
+            "function_id": null,
+            "handle": "irez:5b72ac864e894652:llvm:function:f0",
+            "id": "irez:5b72ac864e894652:llvm:function:f0",
+            "kind": "function",
+            "llvm_type": "i32 (i32)",
+            "local_key": "function:f0",
+            "materialization": "declaration_only",
+            "name": "external",
+            "opcode": null,
+            "ordinal": 0
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {
+              "nsw": true,
+              "nuw": false
+            },
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:1",
+            "exact_text": "  %a = add nsw i32 %x, 1, !dbg !11",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:1",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:1",
+            "kind": "instruction",
+            "llvm_type": "i32",
+            "local_key": "inst:f1:1",
+            "materialization": "structure_ready",
+            "name": "a",
+            "opcode": "add",
+            "ordinal": 1
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {
+              "nsw": true,
+              "nuw": false
+            },
+            "block_id": "irez:5b72ac864e894652:llvm:block:f1:2",
+            "exact_text": "  %b = sub nsw i32 %x, 1, !dbg !13",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:inst:f1:3",
+            "id": "irez:5b72ac864e894652:llvm:inst:f1:3",
+            "kind": "instruction",
+            "llvm_type": "i32",
+            "local_key": "inst:f1:3",
+            "materialization": "structure_ready",
+            "name": "b",
+            "opcode": "sub",
+            "ordinal": 3
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {},
+            "block_id": null,
+            "exact_text": "i32 %x",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:arg:f1:0",
+            "id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+            "kind": "argument",
+            "llvm_type": "i32",
+            "local_key": "arg:f1:0",
+            "materialization": "structure_ready",
+            "name": "x",
+            "opcode": null,
+            "ordinal": 0
+          },
+          {
+            "artifact_id": "artifact:5b72ac864e894652",
+            "attributes": {},
+            "block_id": null,
+            "exact_text": "i32 1",
+            "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+            "handle": "irez:5b72ac864e894652:llvm:constant:f1:0",
+            "id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+            "kind": "constant",
+            "llvm_type": "i32",
+            "local_key": "constant:f1:0",
+            "materialization": "structure_ready",
+            "name": "",
+            "opcode": null,
+            "ordinal": null
+          }
+        ],
+        "relations": [
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 0,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:7"
+          },
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:5",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 0,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:6"
+          },
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:function:f0",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 1,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:6"
+          },
+          {
+            "attributes": {
+              "incoming_block": "block:f1:1"
+            },
+            "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:1",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 0,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:5"
+          },
+          {
+            "attributes": {
+              "incoming_block": "block:f1:2"
+            },
+            "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:3",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 1,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:5"
+          },
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 0,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:1"
+          },
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 1,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:1"
+          },
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 0,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:3"
+          },
+          {
+            "attributes": {},
+            "dst_id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+            "kind": "llvm.operand",
+            "modality": "must",
+            "ordinal": 1,
+            "precision": "exact",
+            "src_id": "irez:5b72ac864e894652:llvm:inst:f1:3"
+          }
+        ]
+      },
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:inst:f1:7",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 8
+      },
+      "unknowns": []
+    }
+  },
+  "source-add": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "source_mapping",
+          "precision": "partial",
+          "status": "supported"
+        }
+      ],
+      "command": "source",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": [
+        {
+          "column_no": 5,
+          "discriminator": 0,
+          "file": "/fixtures/nonfloating.c",
+          "inline_depth": 0,
+          "line": 3,
+          "scope_name": "choose"
+        }
+      ],
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:inst:f1:1",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "status": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [],
+      "command": "status",
+      "diagnostics": [
+        {
+          "kind": "materialization_counts",
+          "materialized_functions": "counts materializations rows with status='structure_ready'; query-triggered on-demand materialization is included once the query completes",
+          "per_function_state": "run functions [--artifact ID] for per-function materialization status"
+        }
+      ],
+      "evidence_refs": [],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "adapter_version": 2,
+        "analysis_schema_version": 2,
+        "api_schema_version": 1,
+        "artifacts": 1,
+        "build_revision": "<BUILD_REVISION>",
+        "db_schema_version": 2,
+        "failed_catalogs": 0,
+        "failed_materializations": 0,
+        "functions": 2,
+        "irez_version": "0.1.0",
+        "llvm_build_version": "<LLVM_VERSION>",
+        "materialized_functions": 0,
+        "materializing_functions": 0,
+        "schema_version": 2,
+        "state_dir": "<STATE>"
+      },
+      "schema_version": 1,
+      "target": null,
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "status-empty": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [],
+      "command": "status",
+      "diagnostics": [
+        {
+          "kind": "materialization_counts",
+          "materialized_functions": "counts materializations rows with status='structure_ready'; query-triggered on-demand materialization is included once the query completes",
+          "per_function_state": "run functions [--artifact ID] for per-function materialization status"
+        }
+      ],
+      "evidence_refs": [],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "adapter_version": 2,
+        "analysis_schema_version": 2,
+        "api_schema_version": 1,
+        "artifacts": 0,
+        "build_revision": "<BUILD_REVISION>",
+        "db_schema_version": 2,
+        "failed_catalogs": 0,
+        "failed_materializations": 0,
+        "functions": 0,
+        "irez_version": "0.1.0",
+        "llvm_build_version": "<LLVM_VERSION>",
+        "materialized_functions": 0,
+        "materializing_functions": 0,
+        "schema_version": 2,
+        "state_dir": "<STATE>"
+      },
+      "schema_version": 1,
+      "target": null,
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 0
+      },
+      "unknowns": []
+    }
+  },
+  "trace-return": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "direct_calls",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "source_mapping",
+          "precision": "partial",
+          "status": "supported"
+        }
+      ],
+      "command": "trace-return",
+      "diagnostics": [
+        {
+          "budget_depth": 8,
+          "budget_nodes_per_sink": 20,
+          "detail": "summary",
+          "kind": "composed_query",
+          "scope": "function_local_operand_evidence",
+          "sections": [
+            "boundaries",
+            "calls",
+            "chain",
+            "source"
+          ],
+          "sink": "return"
+        },
+        {
+          "kind": "truncation",
+          "scope": "per_sink",
+          "total_visited_nodes": 8,
+          "truncated_sites": 0
+        }
+      ],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "function": "irez:5b72ac864e894652:llvm:function:f1",
+        "return_count": 1,
+        "sites": [
+          {
+            "boundaries": [],
+            "call_boundaries": [
+              {
+                "call": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "expandable": false,
+                "modality": "must",
+                "precision": "exact",
+                "reason": "declaration_only",
+                "status": "external",
+                "target": "irez:5b72ac864e894652:llvm:function:f0",
+                "target_llvm_type": "i32 (i32)",
+                "target_name": "external"
+              }
+            ],
+            "chain": [
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+                "kind": "instruction",
+                "llvm_type": "void",
+                "name": "",
+                "opcode": "ret",
+                "ordinal": 7
+              },
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "r",
+                "opcode": "call",
+                "ordinal": 6
+              },
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:5",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:5",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "v",
+                "opcode": "phi",
+                "ordinal": 5
+              },
+              {
+                "block_id": null,
+                "function_id": null,
+                "handle": "irez:5b72ac864e894652:llvm:function:f0",
+                "id": "irez:5b72ac864e894652:llvm:function:f0",
+                "kind": "function",
+                "llvm_type": "i32 (i32)",
+                "name": "external",
+                "opcode": null,
+                "ordinal": 0
+              },
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:1",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:1",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:1",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "a",
+                "opcode": "add",
+                "ordinal": 1
+              },
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:2",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:3",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:3",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "b",
+                "opcode": "sub",
+                "ordinal": 3
+              },
+              {
+                "block_id": null,
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:arg:f1:0",
+                "id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+                "kind": "argument",
+                "llvm_type": "i32",
+                "name": "x",
+                "opcode": null,
+                "ordinal": 0
+              },
+              {
+                "block_id": null,
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:constant:f1:0",
+                "id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+                "kind": "constant",
+                "llvm_type": "i32",
+                "name": "",
+                "opcode": null,
+                "ordinal": null
+              }
+            ],
+            "direct_calls": [
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "r",
+                "opcode": "call",
+                "ordinal": 6
+              }
+            ],
+            "node_count": 8,
+            "operand": {
+              "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+              "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+              "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+              "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+              "kind": "instruction",
+              "llvm_type": "i32",
+              "name": "r",
+              "opcode": "call",
+              "ordinal": 6
+            },
+            "relation_count": 9,
+            "return": {
+              "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+              "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+              "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+              "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+              "kind": "instruction",
+              "llvm_type": "void",
+              "name": "",
+              "opcode": "ret",
+              "ordinal": 7
+            },
+            "source": [
+              {
+                "column_no": 3,
+                "discriminator": 0,
+                "file": "/fixtures/nonfloating.c",
+                "inline_depth": 0,
+                "line": 9,
+                "scope_name": "choose"
+              }
+            ],
+            "truncation": {
+              "budget_depth": 8,
+              "budget_nodes": 20,
+              "reason": null,
+              "truncated": false,
+              "visited_nodes": 8
+            },
+            "value_shape": "scalar"
+          }
+        ]
+      },
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:function:f1",
+      "truncation": {
+        "budget_nodes": 20,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 8
+      },
+      "unknowns": []
+    }
+  },
+  "trace-return-bad-section": {
+    "exit_code": 2,
+    "stderr": {
+      "api_schema_version": 1,
+      "error": "unknown trace include section: bogus",
+      "error_kind": "state_error",
+      "exit_code": 2,
+      "schema_version": 1,
+      "usage": "usage: irez trace-return FUNCTION [--return all|HANDLE] [--budget-nodes N] [--budget-depth N] [--detail summary|graph] [--include LIST]"
+    },
+    "stdout": null
+  },
+  "trace-return-flags": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "direct_calls",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "source_mapping",
+          "precision": "partial",
+          "status": "supported"
+        }
+      ],
+      "command": "trace-return",
+      "diagnostics": [
+        {
+          "budget_depth": 8,
+          "budget_nodes_per_sink": 50,
+          "detail": "summary",
+          "kind": "composed_query",
+          "scope": "function_local_operand_evidence",
+          "sections": [
+            "boundaries",
+            "calls",
+            "chain",
+            "flags",
+            "source"
+          ],
+          "sink": "return"
+        },
+        {
+          "kind": "truncation",
+          "scope": "per_sink",
+          "total_visited_nodes": 8,
+          "truncated_sites": 0
+        }
+      ],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "function": "irez:5b72ac864e894652:llvm:function:f1",
+        "return_count": 1,
+        "sites": [
+          {
+            "boundaries": [],
+            "call_boundaries": [
+              {
+                "call": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "expandable": false,
+                "modality": "must",
+                "precision": "exact",
+                "reason": "declaration_only",
+                "status": "external",
+                "target": "irez:5b72ac864e894652:llvm:function:f0",
+                "target_llvm_type": "i32 (i32)",
+                "target_name": "external"
+              }
+            ],
+            "chain": [
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+                "kind": "instruction",
+                "llvm_type": "void",
+                "name": "",
+                "opcode": "ret",
+                "ordinal": 7
+              },
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "r",
+                "opcode": "call",
+                "ordinal": 6
+              },
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:5",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:5",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "v",
+                "opcode": "phi",
+                "ordinal": 5
+              },
+              {
+                "block_id": null,
+                "function_id": null,
+                "handle": "irez:5b72ac864e894652:llvm:function:f0",
+                "id": "irez:5b72ac864e894652:llvm:function:f0",
+                "kind": "function",
+                "llvm_type": "i32 (i32)",
+                "name": "external",
+                "opcode": null,
+                "ordinal": 0
+              },
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:1",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:1",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:1",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "a",
+                "opcode": "add",
+                "ordinal": 1
+              },
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:2",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:3",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:3",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "b",
+                "opcode": "sub",
+                "ordinal": 3
+              },
+              {
+                "block_id": null,
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:arg:f1:0",
+                "id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+                "kind": "argument",
+                "llvm_type": "i32",
+                "name": "x",
+                "opcode": null,
+                "ordinal": 0
+              },
+              {
+                "block_id": null,
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:constant:f1:0",
+                "id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+                "kind": "constant",
+                "llvm_type": "i32",
+                "name": "",
+                "opcode": null,
+                "ordinal": null
+              }
+            ],
+            "direct_calls": [
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "r",
+                "opcode": "call",
+                "ordinal": 6
+              }
+            ],
+            "flags": [
+              {
+                "flags": {
+                  "nsw": true
+                },
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:1",
+                "opcode": "add"
+              },
+              {
+                "flags": {
+                  "nsw": true
+                },
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:3",
+                "opcode": "sub"
+              }
+            ],
+            "node_count": 8,
+            "operand": {
+              "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+              "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+              "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+              "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+              "kind": "instruction",
+              "llvm_type": "i32",
+              "name": "r",
+              "opcode": "call",
+              "ordinal": 6
+            },
+            "relation_count": 9,
+            "return": {
+              "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+              "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+              "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+              "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+              "kind": "instruction",
+              "llvm_type": "void",
+              "name": "",
+              "opcode": "ret",
+              "ordinal": 7
+            },
+            "source": [
+              {
+                "column_no": 3,
+                "discriminator": 0,
+                "file": "/fixtures/nonfloating.c",
+                "inline_depth": 0,
+                "line": 9,
+                "scope_name": "choose"
+              }
+            ],
+            "truncation": {
+              "budget_depth": 8,
+              "budget_nodes": 50,
+              "reason": null,
+              "truncated": false,
+              "visited_nodes": 8
+            },
+            "value_shape": "scalar"
+          }
+        ]
+      },
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:function:f1",
+      "truncation": {
+        "budget_nodes": 50,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 8
+      },
+      "unknowns": []
+    }
+  },
+  "trace-return-graph": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "direct_calls",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "source_mapping",
+          "precision": "partial",
+          "status": "supported"
+        }
+      ],
+      "command": "trace-return",
+      "diagnostics": [
+        {
+          "budget_depth": 8,
+          "budget_nodes_per_sink": 20,
+          "detail": "graph",
+          "kind": "composed_query",
+          "scope": "function_local_operand_evidence",
+          "sections": [
+            "boundaries",
+            "calls",
+            "nodes",
+            "relations",
+            "source"
+          ],
+          "sink": "return"
+        },
+        {
+          "kind": "truncation",
+          "scope": "per_sink",
+          "total_visited_nodes": 8,
+          "truncated_sites": 0
+        }
+      ],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "function": "irez:5b72ac864e894652:llvm:function:f1",
+        "return_count": 1,
+        "sites": [
+          {
+            "boundaries": [],
+            "call_boundaries": [
+              {
+                "call": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "expandable": false,
+                "modality": "must",
+                "precision": "exact",
+                "reason": "declaration_only",
+                "status": "external",
+                "target": "irez:5b72ac864e894652:llvm:function:f0",
+                "target_llvm_type": "i32 (i32)",
+                "target_name": "external"
+              }
+            ],
+            "direct_calls": [
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "r",
+                "opcode": "call",
+                "ordinal": 6
+              }
+            ],
+            "node_count": 8,
+            "operand": {
+              "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+              "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+              "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+              "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+              "kind": "instruction",
+              "llvm_type": "i32",
+              "name": "r",
+              "opcode": "call",
+              "ordinal": 6
+            },
+            "relation_count": 9,
+            "return": {
+              "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+              "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+              "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+              "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+              "kind": "instruction",
+              "llvm_type": "void",
+              "name": "",
+              "opcode": "ret",
+              "ordinal": 7
+            },
+            "source": [
+              {
+                "column_no": 3,
+                "discriminator": 0,
+                "file": "/fixtures/nonfloating.c",
+                "inline_depth": 0,
+                "line": 9,
+                "scope_name": "choose"
+              }
+            ],
+            "truncation": {
+              "budget_depth": 8,
+              "budget_nodes": 20,
+              "reason": null,
+              "truncated": false,
+              "visited_nodes": 8
+            },
+            "value_graph": {
+              "budget_depth": 8,
+              "direction": "backward",
+              "nodes": [
+                {
+                  "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                  "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                  "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+                  "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+                  "kind": "instruction",
+                  "llvm_type": "void",
+                  "name": "",
+                  "opcode": "ret",
+                  "ordinal": 7
+                },
+                {
+                  "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                  "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                  "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                  "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                  "kind": "instruction",
+                  "llvm_type": "i32",
+                  "name": "r",
+                  "opcode": "call",
+                  "ordinal": 6
+                },
+                {
+                  "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                  "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                  "handle": "irez:5b72ac864e894652:llvm:inst:f1:5",
+                  "id": "irez:5b72ac864e894652:llvm:inst:f1:5",
+                  "kind": "instruction",
+                  "llvm_type": "i32",
+                  "name": "v",
+                  "opcode": "phi",
+                  "ordinal": 5
+                },
+                {
+                  "block_id": null,
+                  "function_id": null,
+                  "handle": "irez:5b72ac864e894652:llvm:function:f0",
+                  "id": "irez:5b72ac864e894652:llvm:function:f0",
+                  "kind": "function",
+                  "llvm_type": "i32 (i32)",
+                  "name": "external",
+                  "opcode": null,
+                  "ordinal": 0
+                },
+                {
+                  "block_id": "irez:5b72ac864e894652:llvm:block:f1:1",
+                  "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                  "handle": "irez:5b72ac864e894652:llvm:inst:f1:1",
+                  "id": "irez:5b72ac864e894652:llvm:inst:f1:1",
+                  "kind": "instruction",
+                  "llvm_type": "i32",
+                  "name": "a",
+                  "opcode": "add",
+                  "ordinal": 1
+                },
+                {
+                  "block_id": "irez:5b72ac864e894652:llvm:block:f1:2",
+                  "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                  "handle": "irez:5b72ac864e894652:llvm:inst:f1:3",
+                  "id": "irez:5b72ac864e894652:llvm:inst:f1:3",
+                  "kind": "instruction",
+                  "llvm_type": "i32",
+                  "name": "b",
+                  "opcode": "sub",
+                  "ordinal": 3
+                },
+                {
+                  "block_id": null,
+                  "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                  "handle": "irez:5b72ac864e894652:llvm:arg:f1:0",
+                  "id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+                  "kind": "argument",
+                  "llvm_type": "i32",
+                  "name": "x",
+                  "opcode": null,
+                  "ordinal": 0
+                },
+                {
+                  "block_id": null,
+                  "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                  "handle": "irez:5b72ac864e894652:llvm:constant:f1:0",
+                  "id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+                  "kind": "constant",
+                  "llvm_type": "i32",
+                  "name": "",
+                  "opcode": null,
+                  "ordinal": null
+                }
+              ],
+              "relations": [
+                {
+                  "attributes": {},
+                  "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                  "kind": "llvm.operand",
+                  "modality": "must",
+                  "ordinal": 0,
+                  "precision": "exact",
+                  "src_id": "irez:5b72ac864e894652:llvm:inst:f1:7"
+                },
+                {
+                  "attributes": {},
+                  "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:5",
+                  "kind": "llvm.operand",
+                  "modality": "must",
+                  "ordinal": 0,
+                  "precision": "exact",
+                  "src_id": "irez:5b72ac864e894652:llvm:inst:f1:6"
+                },
+                {
+                  "attributes": {},
+                  "dst_id": "irez:5b72ac864e894652:llvm:function:f0",
+                  "kind": "llvm.operand",
+                  "modality": "must",
+                  "ordinal": 1,
+                  "precision": "exact",
+                  "src_id": "irez:5b72ac864e894652:llvm:inst:f1:6"
+                },
+                {
+                  "attributes": {
+                    "incoming_block": "block:f1:1"
+                  },
+                  "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:1",
+                  "kind": "llvm.operand",
+                  "modality": "must",
+                  "ordinal": 0,
+                  "precision": "exact",
+                  "src_id": "irez:5b72ac864e894652:llvm:inst:f1:5"
+                },
+                {
+                  "attributes": {
+                    "incoming_block": "block:f1:2"
+                  },
+                  "dst_id": "irez:5b72ac864e894652:llvm:inst:f1:3",
+                  "kind": "llvm.operand",
+                  "modality": "must",
+                  "ordinal": 1,
+                  "precision": "exact",
+                  "src_id": "irez:5b72ac864e894652:llvm:inst:f1:5"
+                },
+                {
+                  "attributes": {},
+                  "dst_id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+                  "kind": "llvm.operand",
+                  "modality": "must",
+                  "ordinal": 0,
+                  "precision": "exact",
+                  "src_id": "irez:5b72ac864e894652:llvm:inst:f1:1"
+                },
+                {
+                  "attributes": {},
+                  "dst_id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+                  "kind": "llvm.operand",
+                  "modality": "must",
+                  "ordinal": 1,
+                  "precision": "exact",
+                  "src_id": "irez:5b72ac864e894652:llvm:inst:f1:1"
+                },
+                {
+                  "attributes": {},
+                  "dst_id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+                  "kind": "llvm.operand",
+                  "modality": "must",
+                  "ordinal": 0,
+                  "precision": "exact",
+                  "src_id": "irez:5b72ac864e894652:llvm:inst:f1:3"
+                },
+                {
+                  "attributes": {},
+                  "dst_id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+                  "kind": "llvm.operand",
+                  "modality": "must",
+                  "ordinal": 1,
+                  "precision": "exact",
+                  "src_id": "irez:5b72ac864e894652:llvm:inst:f1:3"
+                }
+              ]
+            },
+            "value_shape": "scalar"
+          }
+        ]
+      },
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:function:f1",
+      "truncation": {
+        "budget_nodes": 20,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 8
+      },
+      "unknowns": []
+    }
+  },
+  "trace-return-include-nodes": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "direct_calls",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "source_mapping",
+          "precision": "partial",
+          "status": "supported"
+        }
+      ],
+      "command": "trace-return",
+      "diagnostics": [
+        {
+          "budget_depth": 8,
+          "budget_nodes_per_sink": 20,
+          "detail": "summary",
+          "kind": "composed_query",
+          "scope": "function_local_operand_evidence",
+          "sections": [
+            "boundaries",
+            "calls",
+            "chain",
+            "nodes",
+            "source"
+          ],
+          "sink": "return"
+        },
+        {
+          "kind": "truncation",
+          "scope": "per_sink",
+          "total_visited_nodes": 8,
+          "truncated_sites": 0
+        }
+      ],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "function": "irez:5b72ac864e894652:llvm:function:f1",
+        "return_count": 1,
+        "sites": [
+          {
+            "boundaries": [],
+            "call_boundaries": [
+              {
+                "call": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "expandable": false,
+                "modality": "must",
+                "precision": "exact",
+                "reason": "declaration_only",
+                "status": "external",
+                "target": "irez:5b72ac864e894652:llvm:function:f0",
+                "target_llvm_type": "i32 (i32)",
+                "target_name": "external"
+              }
+            ],
+            "chain": [
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+                "kind": "instruction",
+                "llvm_type": "void",
+                "name": "",
+                "opcode": "ret",
+                "ordinal": 7
+              },
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "r",
+                "opcode": "call",
+                "ordinal": 6
+              },
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:5",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:5",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "v",
+                "opcode": "phi",
+                "ordinal": 5
+              },
+              {
+                "block_id": null,
+                "function_id": null,
+                "handle": "irez:5b72ac864e894652:llvm:function:f0",
+                "id": "irez:5b72ac864e894652:llvm:function:f0",
+                "kind": "function",
+                "llvm_type": "i32 (i32)",
+                "name": "external",
+                "opcode": null,
+                "ordinal": 0
+              },
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:1",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:1",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:1",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "a",
+                "opcode": "add",
+                "ordinal": 1
+              },
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:2",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:3",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:3",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "b",
+                "opcode": "sub",
+                "ordinal": 3
+              },
+              {
+                "block_id": null,
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:arg:f1:0",
+                "id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+                "kind": "argument",
+                "llvm_type": "i32",
+                "name": "x",
+                "opcode": null,
+                "ordinal": 0
+              },
+              {
+                "block_id": null,
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:constant:f1:0",
+                "id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+                "kind": "constant",
+                "llvm_type": "i32",
+                "name": "",
+                "opcode": null,
+                "ordinal": null
+              }
+            ],
+            "direct_calls": [
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "r",
+                "opcode": "call",
+                "ordinal": 6
+              }
+            ],
+            "node_count": 8,
+            "operand": {
+              "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+              "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+              "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+              "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+              "kind": "instruction",
+              "llvm_type": "i32",
+              "name": "r",
+              "opcode": "call",
+              "ordinal": 6
+            },
+            "relation_count": 9,
+            "return": {
+              "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+              "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+              "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+              "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+              "kind": "instruction",
+              "llvm_type": "void",
+              "name": "",
+              "opcode": "ret",
+              "ordinal": 7
+            },
+            "source": [
+              {
+                "column_no": 3,
+                "discriminator": 0,
+                "file": "/fixtures/nonfloating.c",
+                "inline_depth": 0,
+                "line": 9,
+                "scope_name": "choose"
+              }
+            ],
+            "truncation": {
+              "budget_depth": 8,
+              "budget_nodes": 20,
+              "reason": null,
+              "truncated": false,
+              "visited_nodes": 8
+            },
+            "value_graph": {
+              "budget_depth": 8,
+              "direction": "backward",
+              "nodes": [
+                {
+                  "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                  "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                  "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+                  "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+                  "kind": "instruction",
+                  "llvm_type": "void",
+                  "name": "",
+                  "opcode": "ret",
+                  "ordinal": 7
+                },
+                {
+                  "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                  "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                  "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                  "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                  "kind": "instruction",
+                  "llvm_type": "i32",
+                  "name": "r",
+                  "opcode": "call",
+                  "ordinal": 6
+                },
+                {
+                  "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                  "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                  "handle": "irez:5b72ac864e894652:llvm:inst:f1:5",
+                  "id": "irez:5b72ac864e894652:llvm:inst:f1:5",
+                  "kind": "instruction",
+                  "llvm_type": "i32",
+                  "name": "v",
+                  "opcode": "phi",
+                  "ordinal": 5
+                },
+                {
+                  "block_id": null,
+                  "function_id": null,
+                  "handle": "irez:5b72ac864e894652:llvm:function:f0",
+                  "id": "irez:5b72ac864e894652:llvm:function:f0",
+                  "kind": "function",
+                  "llvm_type": "i32 (i32)",
+                  "name": "external",
+                  "opcode": null,
+                  "ordinal": 0
+                },
+                {
+                  "block_id": "irez:5b72ac864e894652:llvm:block:f1:1",
+                  "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                  "handle": "irez:5b72ac864e894652:llvm:inst:f1:1",
+                  "id": "irez:5b72ac864e894652:llvm:inst:f1:1",
+                  "kind": "instruction",
+                  "llvm_type": "i32",
+                  "name": "a",
+                  "opcode": "add",
+                  "ordinal": 1
+                },
+                {
+                  "block_id": "irez:5b72ac864e894652:llvm:block:f1:2",
+                  "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                  "handle": "irez:5b72ac864e894652:llvm:inst:f1:3",
+                  "id": "irez:5b72ac864e894652:llvm:inst:f1:3",
+                  "kind": "instruction",
+                  "llvm_type": "i32",
+                  "name": "b",
+                  "opcode": "sub",
+                  "ordinal": 3
+                },
+                {
+                  "block_id": null,
+                  "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                  "handle": "irez:5b72ac864e894652:llvm:arg:f1:0",
+                  "id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+                  "kind": "argument",
+                  "llvm_type": "i32",
+                  "name": "x",
+                  "opcode": null,
+                  "ordinal": 0
+                },
+                {
+                  "block_id": null,
+                  "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                  "handle": "irez:5b72ac864e894652:llvm:constant:f1:0",
+                  "id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+                  "kind": "constant",
+                  "llvm_type": "i32",
+                  "name": "",
+                  "opcode": null,
+                  "ordinal": null
+                }
+              ]
+            },
+            "value_shape": "scalar"
+          }
+        ]
+      },
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:function:f1",
+      "truncation": {
+        "budget_nodes": 20,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 8
+      },
+      "unknowns": []
+    }
+  },
+  "trace-return-kernel-null": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "source_mapping",
+          "precision": "partial",
+          "status": "supported"
+        }
+      ],
+      "command": "trace-return",
+      "diagnostics": [
+        {
+          "budget_depth": 8,
+          "budget_nodes_per_sink": 20,
+          "detail": "summary",
+          "kind": "composed_query",
+          "scope": "function_local_operand_evidence",
+          "sections": [
+            "boundaries",
+            "calls",
+            "chain",
+            "source"
+          ],
+          "sink": "return"
+        },
+        {
+          "kind": "truncation",
+          "scope": "per_sink",
+          "total_visited_nodes": 2,
+          "truncated_sites": 0
+        }
+      ],
+      "evidence_refs": [
+        "artifact:62cc76926c23142d",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "function": "irez:62cc76926c23142d:llvm:function:f0",
+        "return_count": 1,
+        "sites": [
+          {
+            "boundaries": [],
+            "call_boundaries": [],
+            "chain": [
+              {
+                "block_id": "irez:62cc76926c23142d:llvm:block:f0:0",
+                "function_id": "irez:62cc76926c23142d:llvm:function:f0",
+                "handle": "irez:62cc76926c23142d:llvm:inst:f0:5",
+                "id": "irez:62cc76926c23142d:llvm:inst:f0:5",
+                "kind": "instruction",
+                "llvm_type": "void",
+                "name": "",
+                "opcode": "ret",
+                "ordinal": 5
+              },
+              {
+                "block_id": null,
+                "function_id": "irez:62cc76926c23142d:llvm:function:f0",
+                "handle": "irez:62cc76926c23142d:llvm:constant:f0:3",
+                "id": "irez:62cc76926c23142d:llvm:constant:f0:3",
+                "kind": "constant",
+                "llvm_type": "ptr",
+                "name": "",
+                "opcode": null,
+                "ordinal": null
+              }
+            ],
+            "direct_calls": [],
+            "node_count": 2,
+            "operand": {
+              "block_id": null,
+              "function_id": "irez:62cc76926c23142d:llvm:function:f0",
+              "handle": "irez:62cc76926c23142d:llvm:constant:f0:3",
+              "id": "irez:62cc76926c23142d:llvm:constant:f0:3",
+              "kind": "constant",
+              "llvm_type": "ptr",
+              "name": "",
+              "opcode": null,
+              "ordinal": null
+            },
+            "relation_count": 1,
+            "return": {
+              "block_id": "irez:62cc76926c23142d:llvm:block:f0:0",
+              "function_id": "irez:62cc76926c23142d:llvm:function:f0",
+              "handle": "irez:62cc76926c23142d:llvm:inst:f0:5",
+              "id": "irez:62cc76926c23142d:llvm:inst:f0:5",
+              "kind": "instruction",
+              "llvm_type": "void",
+              "name": "",
+              "opcode": "ret",
+              "ordinal": 5
+            },
+            "source": [],
+            "truncation": {
+              "budget_depth": 8,
+              "budget_nodes": 20,
+              "reason": null,
+              "truncated": false,
+              "visited_nodes": 2
+            },
+            "value_shape": "scalar"
+          }
+        ]
+      },
+      "schema_version": 1,
+      "target": "irez:62cc76926c23142d:llvm:function:f0",
+      "truncation": {
+        "budget_nodes": 20,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 2
+      },
+      "unknowns": [
+        {
+          "kind": "source_mapping",
+          "status": "unavailable"
+        },
+        {
+          "hint": "use trace-stores to trace the stored values",
+          "kind": "result_channel",
+          "reason": "every return is void or a constant null pointer; results leave this function through store instructions",
+          "status": "write_side_effects"
+        }
+      ]
+    }
+  },
+  "trace-return-summary": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "direct_calls",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "source_mapping",
+          "precision": "partial",
+          "status": "supported"
+        }
+      ],
+      "command": "trace-return",
+      "diagnostics": [
+        {
+          "budget_depth": 8,
+          "budget_nodes_per_sink": 20,
+          "detail": "summary",
+          "kind": "composed_query",
+          "scope": "function_local_operand_evidence",
+          "sections": [
+            "boundaries",
+            "calls",
+            "chain",
+            "source"
+          ],
+          "sink": "return"
+        },
+        {
+          "kind": "truncation",
+          "scope": "per_sink",
+          "total_visited_nodes": 8,
+          "truncated_sites": 0
+        }
+      ],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "function": "irez:5b72ac864e894652:llvm:function:f1",
+        "return_count": 1,
+        "sites": [
+          {
+            "boundaries": [],
+            "call_boundaries": [
+              {
+                "call": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "expandable": false,
+                "modality": "must",
+                "precision": "exact",
+                "reason": "declaration_only",
+                "status": "external",
+                "target": "irez:5b72ac864e894652:llvm:function:f0",
+                "target_llvm_type": "i32 (i32)",
+                "target_name": "external"
+              }
+            ],
+            "chain": [
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+                "kind": "instruction",
+                "llvm_type": "void",
+                "name": "",
+                "opcode": "ret",
+                "ordinal": 7
+              },
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "r",
+                "opcode": "call",
+                "ordinal": 6
+              },
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:5",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:5",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "v",
+                "opcode": "phi",
+                "ordinal": 5
+              },
+              {
+                "block_id": null,
+                "function_id": null,
+                "handle": "irez:5b72ac864e894652:llvm:function:f0",
+                "id": "irez:5b72ac864e894652:llvm:function:f0",
+                "kind": "function",
+                "llvm_type": "i32 (i32)",
+                "name": "external",
+                "opcode": null,
+                "ordinal": 0
+              },
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:1",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:1",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:1",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "a",
+                "opcode": "add",
+                "ordinal": 1
+              },
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:2",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:3",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:3",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "b",
+                "opcode": "sub",
+                "ordinal": 3
+              },
+              {
+                "block_id": null,
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:arg:f1:0",
+                "id": "irez:5b72ac864e894652:llvm:arg:f1:0",
+                "kind": "argument",
+                "llvm_type": "i32",
+                "name": "x",
+                "opcode": null,
+                "ordinal": 0
+              },
+              {
+                "block_id": null,
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:constant:f1:0",
+                "id": "irez:5b72ac864e894652:llvm:constant:f1:0",
+                "kind": "constant",
+                "llvm_type": "i32",
+                "name": "",
+                "opcode": null,
+                "ordinal": null
+              }
+            ],
+            "direct_calls": [
+              {
+                "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+                "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+                "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+                "kind": "instruction",
+                "llvm_type": "i32",
+                "name": "r",
+                "opcode": "call",
+                "ordinal": 6
+              }
+            ],
+            "node_count": 8,
+            "operand": {
+              "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+              "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+              "handle": "irez:5b72ac864e894652:llvm:inst:f1:6",
+              "id": "irez:5b72ac864e894652:llvm:inst:f1:6",
+              "kind": "instruction",
+              "llvm_type": "i32",
+              "name": "r",
+              "opcode": "call",
+              "ordinal": 6
+            },
+            "relation_count": 9,
+            "return": {
+              "block_id": "irez:5b72ac864e894652:llvm:block:f1:3",
+              "function_id": "irez:5b72ac864e894652:llvm:function:f1",
+              "handle": "irez:5b72ac864e894652:llvm:inst:f1:7",
+              "id": "irez:5b72ac864e894652:llvm:inst:f1:7",
+              "kind": "instruction",
+              "llvm_type": "void",
+              "name": "",
+              "opcode": "ret",
+              "ordinal": 7
+            },
+            "source": [
+              {
+                "column_no": 3,
+                "discriminator": 0,
+                "file": "/fixtures/nonfloating.c",
+                "inline_depth": 0,
+                "line": 9,
+                "scope_name": "choose"
+              }
+            ],
+            "truncation": {
+              "budget_depth": 8,
+              "budget_nodes": 20,
+              "reason": null,
+              "truncated": false,
+              "visited_nodes": 8
+            },
+            "value_shape": "scalar"
+          }
+        ]
+      },
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:function:f1",
+      "truncation": {
+        "budget_nodes": 20,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 8
+      },
+      "unknowns": []
+    }
+  },
+  "trace-stores-kernel": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        },
+        {
+          "name": "source_mapping",
+          "precision": "partial",
+          "status": "supported"
+        }
+      ],
+      "command": "trace-stores",
+      "diagnostics": [
+        {
+          "budget_depth": 8,
+          "budget_nodes_per_sink": 20,
+          "detail": "summary",
+          "kind": "composed_query",
+          "scope": "function_local_operand_evidence",
+          "sections": [
+            "boundaries",
+            "calls",
+            "chain",
+            "source"
+          ],
+          "sink": "store"
+        },
+        {
+          "kind": "truncation",
+          "scope": "per_sink",
+          "total_visited_nodes": 10,
+          "truncated_sites": 0
+        }
+      ],
+      "evidence_refs": [
+        "artifact:62cc76926c23142d",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": {
+        "function": "irez:62cc76926c23142d:llvm:function:f0",
+        "sites": [
+          {
+            "boundaries": [],
+            "call_boundaries": [],
+            "chain": [
+              {
+                "block_id": "irez:62cc76926c23142d:llvm:block:f0:0",
+                "function_id": "irez:62cc76926c23142d:llvm:function:f0",
+                "handle": "irez:62cc76926c23142d:llvm:inst:f0:4",
+                "id": "irez:62cc76926c23142d:llvm:inst:f0:4",
+                "kind": "instruction",
+                "llvm_type": "void",
+                "name": "",
+                "opcode": "store",
+                "ordinal": 4
+              },
+              {
+                "block_id": "irez:62cc76926c23142d:llvm:block:f0:0",
+                "function_id": "irez:62cc76926c23142d:llvm:function:f0",
+                "handle": "irez:62cc76926c23142d:llvm:inst:f0:3",
+                "id": "irez:62cc76926c23142d:llvm:inst:f0:3",
+                "kind": "instruction",
+                "llvm_type": "float",
+                "name": "d",
+                "opcode": "fdiv",
+                "ordinal": 3
+              },
+              {
+                "block_id": null,
+                "function_id": "irez:62cc76926c23142d:llvm:function:f0",
+                "handle": "irez:62cc76926c23142d:llvm:arg:f0:0",
+                "id": "irez:62cc76926c23142d:llvm:arg:f0:0",
+                "kind": "argument",
+                "llvm_type": "ptr",
+                "name": "out",
+                "opcode": null,
+                "ordinal": 0
+              },
+              {
+                "block_id": "irez:62cc76926c23142d:llvm:block:f0:0",
+                "function_id": "irez:62cc76926c23142d:llvm:function:f0",
+                "handle": "irez:62cc76926c23142d:llvm:inst:f0:2",
+                "id": "irez:62cc76926c23142d:llvm:inst:f0:2",
+                "kind": "instruction",
+                "llvm_type": "float",
+                "name": "c",
+                "opcode": "fsub",
+                "ordinal": 2
+              },
+              {
+                "block_id": null,
+                "function_id": "irez:62cc76926c23142d:llvm:function:f0",
+                "handle": "irez:62cc76926c23142d:llvm:constant:f0:2",
+                "id": "irez:62cc76926c23142d:llvm:constant:f0:2",
+                "kind": "constant",
+                "llvm_type": "float",
+                "name": "",
+                "opcode": null,
+                "ordinal": null
+              },
+              {
+                "block_id": "irez:62cc76926c23142d:llvm:block:f0:0",
+                "function_id": "irez:62cc76926c23142d:llvm:function:f0",
+                "handle": "irez:62cc76926c23142d:llvm:inst:f0:1",
+                "id": "irez:62cc76926c23142d:llvm:inst:f0:1",
+                "kind": "instruction",
+                "llvm_type": "float",
+                "name": "b",
+                "opcode": "fmul",
+                "ordinal": 1
+              },
+              {
+                "block_id": null,
+                "function_id": "irez:62cc76926c23142d:llvm:function:f0",
+                "handle": "irez:62cc76926c23142d:llvm:constant:f0:1",
+                "id": "irez:62cc76926c23142d:llvm:constant:f0:1",
+                "kind": "constant",
+                "llvm_type": "float",
+                "name": "",
+                "opcode": null,
+                "ordinal": null
+              },
+              {
+                "block_id": "irez:62cc76926c23142d:llvm:block:f0:0",
+                "function_id": "irez:62cc76926c23142d:llvm:function:f0",
+                "handle": "irez:62cc76926c23142d:llvm:inst:f0:0",
+                "id": "irez:62cc76926c23142d:llvm:inst:f0:0",
+                "kind": "instruction",
+                "llvm_type": "float",
+                "name": "a",
+                "opcode": "load",
+                "ordinal": 0
+              },
+              {
+                "block_id": null,
+                "function_id": "irez:62cc76926c23142d:llvm:function:f0",
+                "handle": "irez:62cc76926c23142d:llvm:constant:f0:0",
+                "id": "irez:62cc76926c23142d:llvm:constant:f0:0",
+                "kind": "constant",
+                "llvm_type": "float",
+                "name": "",
+                "opcode": null,
+                "ordinal": null
+              },
+              {
+                "block_id": null,
+                "function_id": "irez:62cc76926c23142d:llvm:function:f0",
+                "handle": "irez:62cc76926c23142d:llvm:arg:f0:1",
+                "id": "irez:62cc76926c23142d:llvm:arg:f0:1",
+                "kind": "argument",
+                "llvm_type": "ptr",
+                "name": "in",
+                "opcode": null,
+                "ordinal": 1
+              }
+            ],
+            "direct_calls": [],
+            "node_count": 10,
+            "pointer": {
+              "block_id": null,
+              "function_id": "irez:62cc76926c23142d:llvm:function:f0",
+              "handle": "irez:62cc76926c23142d:llvm:arg:f0:0",
+              "id": "irez:62cc76926c23142d:llvm:arg:f0:0",
+              "kind": "argument",
+              "llvm_type": "ptr",
+              "name": "out",
+              "opcode": null,
+              "ordinal": 0
+            },
+            "relation_count": 9,
+            "source": [],
+            "store": {
+              "block_id": "irez:62cc76926c23142d:llvm:block:f0:0",
+              "function_id": "irez:62cc76926c23142d:llvm:function:f0",
+              "handle": "irez:62cc76926c23142d:llvm:inst:f0:4",
+              "id": "irez:62cc76926c23142d:llvm:inst:f0:4",
+              "kind": "instruction",
+              "llvm_type": "void",
+              "name": "",
+              "opcode": "store",
+              "ordinal": 4
+            },
+            "truncation": {
+              "budget_depth": 8,
+              "budget_nodes": 20,
+              "reason": null,
+              "truncated": false,
+              "visited_nodes": 10
+            },
+            "value": {
+              "block_id": "irez:62cc76926c23142d:llvm:block:f0:0",
+              "function_id": "irez:62cc76926c23142d:llvm:function:f0",
+              "handle": "irez:62cc76926c23142d:llvm:inst:f0:3",
+              "id": "irez:62cc76926c23142d:llvm:inst:f0:3",
+              "kind": "instruction",
+              "llvm_type": "float",
+              "name": "d",
+              "opcode": "fdiv",
+              "ordinal": 3
+            },
+            "value_shape": "scalar"
+          }
+        ],
+        "store_count": 1
+      },
+      "schema_version": 1,
+      "target": "irez:62cc76926c23142d:llvm:function:f0",
+      "truncation": {
+        "budget_nodes": 20,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 10
+      },
+      "unknowns": [
+        {
+          "kind": "source_mapping",
+          "status": "unavailable"
+        }
+      ]
+    }
+  },
+  "uses-arg": {
+    "exit_code": 0,
+    "stderr": null,
+    "stdout": {
+      "api_schema_version": 1,
+      "boundaries": [],
+      "capabilities_used": [
+        {
+          "name": "operand_graph",
+          "precision": "exact",
+          "status": "supported"
+        }
+      ],
+      "command": "uses",
+      "diagnostics": [],
+      "evidence_refs": [
+        "artifact:5b72ac864e894652",
+        "run:<UUID>"
+      ],
+      "expandable": [],
+      "investigation": "investigation:<UUID>",
+      "result": [
+        {
+          "exact_text": "  %a = add nsw i32 %x, 1, !dbg !11",
+          "opcode": "add",
+          "ordinal": 0,
+          "user": "irez:5b72ac864e894652:llvm:inst:f1:1"
+        },
+        {
+          "exact_text": "  %b = sub nsw i32 %x, 1, !dbg !13",
+          "opcode": "sub",
+          "ordinal": 0,
+          "user": "irez:5b72ac864e894652:llvm:inst:f1:3"
+        }
+      ],
+      "schema_version": 1,
+      "target": "irez:5b72ac864e894652:llvm:arg:f1:0",
+      "truncation": {
+        "budget_nodes": 100,
+        "reason": null,
+        "truncated": false,
+        "visited_nodes": 2
+      },
+      "unknowns": []
+    }
+  }
+}

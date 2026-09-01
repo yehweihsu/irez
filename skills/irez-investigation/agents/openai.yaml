@@ -1,0 +1,4 @@
+interface:
+  display_name: "IREZ Investigation"
+  short_description: "Investigate LLVM evidence safely with IREZ"
+  default_prompt: "Use $irez-investigation to investigate an LLVM entity with bounded, provenance-aware evidence."

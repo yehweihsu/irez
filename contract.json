@@ -1,0 +1,19 @@
+{
+  "comment": "IREZ single source of truth for the product/schema/capability contract. scripts/generate_contract.py derives src/contract.h and mcp/src/contract.rs from this file; CMakeLists.txt reads irez_version from it; scripts/package_release.py reads the schema versions from it. LLVM/Rust toolchain pins live in CI config on purpose — they are not part of this contract.",
+  "irez_version": "0.1.0",
+  "db_schema_version": 2,
+  "api_schema_version": 1,
+  "analysis_schema_version": 2,
+  "adapter_id": "llvm-ir",
+  "adapter_version": 2,
+  "cli_contract_version": 2,
+  "mcp_contract_version": 2,
+  "materialization_capabilities": [
+    { "name": "entity_index", "precision": "exact" },
+    { "name": "operand_graph", "precision": "exact" },
+    { "name": "cfg", "precision": "exact" },
+    { "name": "control_dependence", "precision": "exact" },
+    { "name": "source_mapping", "precision": "partial" },
+    { "name": "direct_calls", "precision": "exact" }
+  ]
+}
