@@ -26,8 +26,9 @@ is kept in [docs/PROGRESS.md](docs/PROGRESS.md).
 
 ### Compatibility
 
-- Source builds support LLVM 21 through 23; official 0.1.0 binaries use LLVM
-  23.1.0 so the embedded reader covers the widest tested IR range.
+- Source builds support LLVM 21 through 23. The official Windows binary uses
+  LLVM 23.1.0; the Linux binary uses LLVM 22.1.8 so it can retain its glibc
+  2.35 runtime floor on the Ubuntu 22.04 release runner.
 - State, API, analysis, adapter, CLI, MCP, registration, and skill compatibility
   are versioned independently. Unsupported state schemas are refused without
   modification.

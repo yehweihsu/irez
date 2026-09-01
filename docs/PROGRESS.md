@@ -11,6 +11,31 @@ Development log, newest first. Two conventions worth knowing before reading:
   `experiments/` — refer to the same unpublished local working directories.
   They are cited for provenance, not as links you can follow.
 
+## 2026-09-01 — First hosted CI and official LLVM package setup
+
+- The first GitHub-hosted run exposed two packaging assumptions before any
+  release was created. `install-llvm-action` v2.0.9 recognizes assets only
+  through LLVM 21.1.8, and its Windows `.exe` asset lacks the development
+  headers, static libraries, and CMake package required by IREZ.
+- Replaced that action with a repository-local setup action. Windows downloads
+  the official `clang+llvm-*-x86_64-pc-windows-msvc.tar.xz` development
+  archive and verifies its release SHA-256. Linux verifies the LLVM apt signing
+  key, uses the official per-distribution repository, and refuses an installed
+  version that differs from the exact matrix version.
+- Avoided the official Linux all-project archive in IREZ CI: it nearly fills a
+  hosted runner and its LTO-built static libraries cannot be linked by the GCC
+  lanes as ordinary native archives. The official apt development packages are
+  substantially smaller and match the successful Ubuntu/WSL build layout.
+- LLVM's Ubuntu 24.04 and 26.04 repositories provide exact LLVM 23.1.0
+  packages, while its Ubuntu 22.04 repository currently tops out at exact
+  LLVM 22.1.8. The release matrix therefore keeps LLVM 23.1.0 for Windows and
+  uses LLVM 22.1.8 for Linux rather than raising the documented glibc 2.35
+  floor. Checked-in notices list both; bundle manifests and SBOMs remain
+  platform-specific.
+- Quoted `LLVM_DIR` so Windows paths containing spaces are passed to CMake as
+  one argument, and limited push-triggered CI to `main` so Dependabot branches
+  do not run duplicate push and pull-request workflows.
+
 ## 2026-09-01 — Ubuntu 26.04 fresh-clone verification
 
 - Completed a fresh-clone WSL2 build and verification on Ubuntu 26.04.1 with

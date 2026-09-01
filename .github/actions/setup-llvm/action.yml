@@ -1,0 +1,129 @@
+name: Set up official LLVM development distribution
+description: Install a verified official LLVM development package for IREZ CI.
+
+inputs:
+  version:
+    description: Exact LLVM release version.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Install LLVM on Linux
+      if: runner.os == 'Linux'
+      shell: bash
+      env:
+        IREZ_LLVM_VERSION: ${{ inputs.version }}
+      run: |
+        set -euo pipefail
+        if [[ "$RUNNER_ARCH" != "X64" ]]; then
+          echo "Unsupported Linux runner architecture: $RUNNER_ARCH" >&2
+          exit 1
+        fi
+
+        source /etc/os-release
+        codename="${VERSION_CODENAME:-}"
+        case "$codename:$IREZ_LLVM_VERSION" in
+          jammy:21.1.8) llvm_major=21 ;;
+          jammy:22.1.8) llvm_major=22 ;;
+          noble:23.1.0) llvm_major=23 ;;
+          resolute:23.1.0) llvm_major=23 ;;
+          *)
+            echo "Unsupported Ubuntu/LLVM pair: $codename/$IREZ_LLVM_VERSION" >&2
+            exit 1
+            ;;
+        esac
+
+        key="$RUNNER_TEMP/llvm-snapshot.gpg.key"
+        key_sha256="8b2a587ffd672c4687e7581dad4b2f6c1bb2ad6b480cd9771ba2ff48e0b8c75d"
+        curl --fail --location --silent --show-error \
+          --retry 5 --retry-all-errors --connect-timeout 30 \
+          --output "$key" https://apt.llvm.org/llvm-snapshot.gpg.key
+        printf '%s  %s\n' "$key_sha256" "$key" | sha256sum --check --strict -
+
+        sudo install -d -m 0755 /etc/apt/keyrings
+        sudo install -m 0644 "$key" /etc/apt/keyrings/llvm-snapshot.asc
+        repository="llvm-toolchain-$codename-$llvm_major"
+        echo "deb [signed-by=/etc/apt/keyrings/llvm-snapshot.asc] https://apt.llvm.org/$codename/ $repository main" \
+          | sudo tee /etc/apt/sources.list.d/llvm-irez.list > /dev/null
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends \
+          "clang-$llvm_major" "llvm-$llvm_major-dev" libzstd-dev
+
+        installed="$(llvm-config-$llvm_major --version)"
+        if [[ "$installed" != "$IREZ_LLVM_VERSION" ]]; then
+          echo "Expected LLVM $IREZ_LLVM_VERSION, installed $installed" >&2
+          exit 1
+        fi
+        llvm_root="$(llvm-config-$llvm_major --prefix)"
+        test -f "$llvm_root/lib/cmake/llvm/LLVMConfig.cmake"
+
+        echo "$llvm_root/bin" >> "$GITHUB_PATH"
+        echo "LLVM_PATH=$llvm_root" >> "$GITHUB_ENV"
+        echo "LD_LIBRARY_PATH=$llvm_root/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" \
+          >> "$GITHUB_ENV"
+
+    - name: Install LLVM on Windows
+      if: runner.os == 'Windows'
+      shell: pwsh
+      env:
+        IREZ_LLVM_VERSION: ${{ inputs.version }}
+      run: |
+        if ($env:RUNNER_ARCH -ne "X64") {
+          throw "Unsupported Windows runner architecture: $env:RUNNER_ARCH"
+        }
+
+        switch ($env:IREZ_LLVM_VERSION) {
+          "21.1.8" {
+            $asset = "clang+llvm-21.1.8-x86_64-pc-windows-msvc.tar.xz"
+            $sha256 = "749d22f565fcd5718dbed06512572d0e5353b502c03fe1f7f17ee8b8aca21a47"
+          }
+          "22.1.8" {
+            $asset = "clang+llvm-22.1.8-x86_64-pc-windows-msvc.tar.xz"
+            $sha256 = "d96c2cc1736f4eb7fa43cb9bbdf56d93551a9ae0a9aadb9c99c3c3b2b712a234"
+          }
+          "23.1.0" {
+            $asset = "clang+llvm-23.1.0-x86_64-pc-windows-msvc.tar.xz"
+            $sha256 = "5799ebeca6870e9e61d5b4c8bc869ca8490e8db55f22d1388c4545404864d9e3"
+          }
+          default {
+            throw "Unsupported LLVM version: $env:IREZ_LLVM_VERSION"
+          }
+        }
+
+        $archive = Join-Path $env:RUNNER_TEMP $asset
+        $llvmRoot = Join-Path $env:RUNNER_TEMP "irez-llvm-$env:IREZ_LLVM_VERSION"
+        $escapedAsset = $asset.Replace("+", "%2B")
+        $url = "https://github.com/llvm/llvm-project/releases/download/llvmorg-$env:IREZ_LLVM_VERSION/$escapedAsset"
+        & curl.exe --fail --location --silent --show-error `
+          --retry 5 --retry-all-errors --connect-timeout 30 `
+          --output $archive $url
+        if ($LASTEXITCODE -ne 0) {
+          throw "LLVM download failed with exit code $LASTEXITCODE"
+        }
+
+        $actual = (Get-FileHash -Algorithm SHA256 -LiteralPath $archive).Hash.ToLowerInvariant()
+        if ($actual -ne $sha256) {
+          throw "LLVM archive SHA-256 mismatch: expected $sha256, got $actual"
+        }
+
+        New-Item -ItemType Directory -Path $llvmRoot | Out-Null
+        & tar.exe --extract --file $archive --directory $llvmRoot --strip-components=1
+        if ($LASTEXITCODE -ne 0) {
+          throw "LLVM extraction failed with exit code $LASTEXITCODE"
+        }
+        $llvmConfig = Join-Path $llvmRoot "lib\cmake\llvm\LLVMConfig.cmake"
+        if (-not (Test-Path -LiteralPath $llvmConfig -PathType Leaf)) {
+          throw "Official archive did not contain LLVMConfig.cmake at $llvmConfig"
+        }
+        Remove-Item -LiteralPath $archive
+
+        Add-Content -LiteralPath $env:GITHUB_PATH -Value (Join-Path $llvmRoot "bin") -Encoding utf8
+        Add-Content -LiteralPath $env:GITHUB_ENV -Value "LLVM_PATH=$llvmRoot" -Encoding utf8
+
+    - name: Reject unsupported operating systems
+      if: runner.os != 'Linux' && runner.os != 'Windows'
+      shell: bash
+      run: |
+        echo "Unsupported runner operating system: $RUNNER_OS" >&2
+        exit 1

@@ -6,7 +6,7 @@ Official releases currently target x86-64 only:
 
 | Bundle | Minimum runtime baseline | Build runner |
 |---|---|---|
-| `linux-x86_64` | glibc 2.35 (Ubuntu 22.04 class systems) | `ubuntu-22.04`, LLVM 23.1.0 |
+| `linux-x86_64` | glibc 2.35 (Ubuntu 22.04 class systems) | `ubuntu-22.04`, LLVM 22.1.8 |
 | `windows-x86_64` | Windows 10 or newer | `windows-2022`, MSVC/VS 2022, LLVM 23.1.0 |
 
 The Linux C++ binaries statically link the GCC support runtimes and the
@@ -36,17 +36,19 @@ covered in [NEW_PROJECT.md](NEW_PROJECT.md).
 `ubuntu-latest`, explicit Ubuntu 26.04, `windows-latest` (currently VS 2026),
 and newer compilers remain in the test matrix as operating-system/toolchain
 forward lanes.
-Release binaries use LLVM 23.1.0 on the baseline runners: the LLVM reader
-version and the operating-system ABI floor are independent choices.
-In particular, a binary built on Ubuntu 26.04 can acquire newer GLIBC
-requirements even when it uses the same LLVM 23 libraries as a build on
-Ubuntu 22.04.
+The two release bundles deliberately use different LLVM versions. Windows
+uses LLVM 23.1.0 for the newest tested reader. Linux uses LLVM 22.1.8 because
+that is the newest exact LLVM release provided by LLVM's official Ubuntu
+22.04 package repository; building the Linux bundle on a newer distribution
+would raise its glibc requirement above 2.35. The bundle manifest and
+`irez status` report the actual reader version, and each platform SBOM records
+the matching LLVM component.
 
 Windows 11, VS 2026, LLVM 23, WSL Ubuntu 26.04, and Clang/LLVM 21-23 are
 supported development environments, but they are not the minimum user
 requirement. LLVM 22.1.8 remains the case-reproduction toolchain for material
-whose upstream defect was fixed in LLVM 23; release binaries use LLVM 23 to
-read that older IR once the case is recorded.
+whose upstream defect was fixed in LLVM 23. Use the Windows bundle or a Linux
+source build against LLVM 23 when that newer reader is required.
 
 ## Source builders
 

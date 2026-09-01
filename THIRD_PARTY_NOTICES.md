@@ -11,6 +11,7 @@ The complete Apache License 2.0 text is in `LICENSE`.
 
 | Component | Version | Declared license | IREZ selection |
 | --- | --- | --- | --- |
+| LLVM | 22.1.8 | Apache-2.0 WITH LLVM-exception | Apache-2.0 WITH LLVM-exception |
 | LLVM | 23.1.0 | Apache-2.0 WITH LLVM-exception | Apache-2.0 WITH LLVM-exception |
 | SQLiteCpp | 3.3.3 | MIT | MIT |
 | SQLite | 3.49.2 | LicenseRef-SQLite-Public-Domain | LicenseRef-SQLite-Public-Domain |

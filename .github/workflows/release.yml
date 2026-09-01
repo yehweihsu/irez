@@ -29,7 +29,7 @@ jobs:
         include:
           - platform: linux-x86_64
             os: ubuntu-22.04
-            llvm: 23.1.0
+            llvm: 22.1.8
             cpp_bin: build
             mcp_bin: mcp/target/release/irez-mcp
             python: python3
@@ -44,8 +44,8 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
-      - id: llvm
-        uses: KyleMayes/install-llvm-action@ebc0426251bc40c7cd31162802432c68818ab8f0 # v2.0.9
+      - name: Install official LLVM development distribution
+        uses: ./.github/actions/setup-llvm
         with:
           version: ${{ matrix.llvm }}
       - name: Install Rust MSRV
@@ -64,7 +64,7 @@ jobs:
           cmake -S . -B build -DIREZ_BUILD_TESTS=ON
           -DCMAKE_BUILD_TYPE=Release
           -DIREZ_PORTABLE_LINUX=ON -DIREZ_STATIC_MSVC_RUNTIME=ON
-          -DLLVM_DIR=${{ env.LLVM_PATH }}/lib/cmake/llvm
+          "-DLLVM_DIR=${{ env.LLVM_PATH }}/lib/cmake/llvm"
       - name: Build and test C++
         run: |
           cmake --build build --config Release --parallel 2

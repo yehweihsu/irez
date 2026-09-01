@@ -5,7 +5,8 @@ import argparse
 import hashlib
 from pathlib import Path
 
-from third_party import ROOT, ZSTD_FALLBACK_VERSION, cargo_components, native_components, release_llvm_version
+from third_party import (ROOT, ZSTD_FALLBACK_VERSION, cargo_components,
+                         llvm_component, native_components, release_llvm_versions)
 
 
 LLVM_EXCEPTION = """---- LLVM Exceptions to the Apache 2.0 License ----
@@ -110,7 +111,9 @@ def row(values):
 
 def render():
     cargo = cargo_components(offline=True, include_documents=True)
-    native = native_components(release_llvm_version(), ZSTD_FALLBACK_VERSION)
+    llvm_versions = release_llvm_versions()
+    native = [llvm_component(version) for version in llvm_versions]
+    native.extend(native_components(llvm_versions[-1], ZSTD_FALLBACK_VERSION)[1:])
     lines = [
         "# Third-Party Notices", "",
         "IREZ is licensed under Apache-2.0. This file records software that may",

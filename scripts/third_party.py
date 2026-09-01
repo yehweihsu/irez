@@ -25,12 +25,12 @@ def validate_native_pins():
             "native compliance metadata does not match CMake pins: " + ", ".join(missing))
 
 
-def release_llvm_version():
+def release_llvm_versions():
     workflow = (ROOT / ".github/workflows/release.yml").read_text(encoding="utf-8")
     versions = set(re.findall(r"^\s+llvm:\s*([0-9]+(?:\.[0-9]+)+)\s*$", workflow, re.MULTILINE))
-    if len(versions) != 1:
-        raise RuntimeError(f"release workflow must pin one LLVM version, found {sorted(versions)}")
-    return versions.pop()
+    if not versions:
+        raise RuntimeError("release workflow must pin at least one LLVM version")
+    return sorted(versions, key=lambda value: tuple(map(int, value.split("."))))
 
 
 def normalize_license(expression):
@@ -131,20 +131,24 @@ def cargo_components(platform=None, offline=True, include_documents=False):
     return sorted(result, key=lambda item: (item["name"].lower(), item["version"]))
 
 
+def llvm_component(llvm_version):
+    return {
+        "name": "LLVM",
+        "version": llvm_version,
+        "license_declared": "Apache-2.0 WITH LLVM-exception",
+        "license_concluded": "Apache-2.0 WITH LLVM-exception",
+        "download_location": ("https://github.com/llvm/llvm-project/releases/tag/"
+                              f"llvmorg-{llvm_version}"),
+        "copyright_text": "Copyright LLVM Project contributors",
+        "supplier": "Organization: LLVM Project",
+        "purl": f"pkg:github/llvm/llvm-project@llvmorg-{llvm_version}",
+    }
+
+
 def native_components(llvm_version, zstd_version=None):
     validate_native_pins()
     components = [
-        {
-            "name": "LLVM",
-            "version": llvm_version,
-            "license_declared": "Apache-2.0 WITH LLVM-exception",
-            "license_concluded": "Apache-2.0 WITH LLVM-exception",
-            "download_location": ("https://github.com/llvm/llvm-project/releases/tag/"
-                                  f"llvmorg-{llvm_version}"),
-            "copyright_text": "Copyright LLVM Project contributors",
-            "supplier": "Organization: LLVM Project",
-            "purl": f"pkg:github/llvm/llvm-project@llvmorg-{llvm_version}",
-        },
+        llvm_component(llvm_version),
         {
             "name": "SQLiteCpp",
             "version": SQLITECPP_VERSION,

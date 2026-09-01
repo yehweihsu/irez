@@ -17,8 +17,9 @@ The canonical repository is <https://github.com/yehweihsu/irez>.
    example, `0.1.0-rc.1`); do not put the suffix in `contract.json`.
 3. Push an annotated `vX.Y.Z` tag, or invoke the release workflow manually
    with a version.
-4. The workflow builds on Ubuntu 22.04 and Windows Server 2022, runs the C++,
-   Rust, MCP, and bundle checks, then creates:
+4. The workflow builds the glibc-2.35 Linux bundle with LLVM 22.1.8 on Ubuntu
+   22.04 and the Windows bundle with LLVM 23.1.0 on Windows Server 2022. It
+   runs the C++, Rust, MCP, and bundle checks, then creates:
    - `irez-X.Y.Z-linux-x86_64.tar.gz`;
    - `irez-X.Y.Z-windows-x86_64.zip`;
    - `NOTICE` and `THIRD_PARTY_NOTICES.md` inside each archive;

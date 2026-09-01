@@ -27,9 +27,12 @@ matrix and binary ABI floor.
 
 The Windows release configuration was last verified locally on 2026-08-31
 with Visual Studio 2026 / MSVC 19.51, Ninja, LLVM 23.1.0, Rust 1.88, and
-Python 3.12. The release workflow continues to test LLVM 21 as the source
-compatibility baseline. Local WSL results are recorded here only after a
-fresh-clone verification, never inferred from the native Windows build.
+Python 3.12. CI continues to test LLVM 21 as the source compatibility
+baseline. Official Windows bundles use LLVM 23.1.0; Linux bundles use LLVM
+22.1.8, the newest exact release available from LLVM's Ubuntu 22.04 package
+repository, so the Linux binary can keep its glibc 2.35 runtime floor. Local
+WSL results are recorded here only after a fresh-clone verification, never
+inferred from the native Windows build.
 
 The Ubuntu configuration was verified on 2026-09-01 with Ubuntu 26.04.1 LTS
 x86-64 under WSL2, GCC 15.2, CMake 4.2.3, LLVM 23.1.0, Rust 1.98, and Python

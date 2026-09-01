@@ -2,6 +2,7 @@ name: ci
 
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -84,8 +85,8 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
-      - id: llvm
-        uses: KyleMayes/install-llvm-action@ebc0426251bc40c7cd31162802432c68818ab8f0 # v2.0.9
+      - name: Install official LLVM development distribution
+        uses: ./.github/actions/setup-llvm
         with:
           version: ${{ matrix.llvm }}
       - name: Select LLVM Clang for forward Linux lane
@@ -99,7 +100,7 @@ jobs:
           cmake -S . -B build -DIREZ_BUILD_TESTS=ON
           -DCMAKE_BUILD_TYPE=Release
           -DIREZ_PORTABLE_LINUX=${{ matrix.portable }}
-          -DLLVM_DIR=${{ env.LLVM_PATH }}/lib/cmake/llvm
+          "-DLLVM_DIR=${{ env.LLVM_PATH }}/lib/cmake/llvm"
       - name: Build
         run: cmake --build build --config Release --parallel 2
       - name: Test
@@ -132,8 +133,8 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
-      - id: llvm
-        uses: KyleMayes/install-llvm-action@ebc0426251bc40c7cd31162802432c68818ab8f0 # v2.0.9
+      - name: Install official LLVM development distribution
+        uses: ./.github/actions/setup-llvm
         with:
           version: 21.1.8
       - name: Install Rust MSRV
@@ -149,7 +150,7 @@ jobs:
           key: ${{ runner.os }}-cargo-1.88-${{ hashFiles('mcp/Cargo.lock') }}
       - name: Build test CLI
         run: |
-          cmake -S . -B build -DIREZ_BUILD_TESTS=OFF -DCMAKE_BUILD_TYPE=Release -DLLVM_DIR=${{ env.LLVM_PATH }}/lib/cmake/llvm
+          cmake -S . -B build -DIREZ_BUILD_TESTS=OFF -DCMAKE_BUILD_TYPE=Release "-DLLVM_DIR=${{ env.LLVM_PATH }}/lib/cmake/llvm"
           cmake --build build --config Release --parallel 2
       - name: Rust tests and real MCP smoke
         working-directory: mcp
