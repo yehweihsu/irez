@@ -236,9 +236,9 @@ Dependencies:
 - LLVM 21+ development files (tested with 21.x through 23.x; not sensitive to the
   exact minor version)
 - Rust toolchain (>= 1.88) for the MCP server
-- GoogleTest 1.17.0, SQLiteCpp 3.3.3, and the Windows LLVM 23 zstd fallback
-  are found or fetched automatically; `IREZ_DEPS_DIR` supports pinned offline
-  checkouts
+- GoogleTest 1.17.0, SQLiteCpp 3.3.3, and the Windows LLVM 23 zlib/zstd
+  fallbacks are found or fetched automatically; `IREZ_DEPS_DIR` supports
+  pinned offline checkouts
 - Python 3 is required when tests are enabled; it is never used at runtime
 
 The same sources build on Linux, WSL, and Windows; official binary releases

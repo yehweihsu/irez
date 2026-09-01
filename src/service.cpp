@@ -1478,11 +1478,15 @@ llvm::json::Object Service::guards(const std::string &handle, std::int64_t budge
     }
     run_ids.push_back(opt_string(row, "analysis_run_id"));
     row.erase("analysis_run_id");
+    const std::string attributes_json = row.at("attributes_json").as_string();
+    // Remove storage-only fields before constructing the LLVM JSON object.
+    // This is reliable across LLVM 21-23; LLVM 21's Object::erase did not
+    // remove this owned key in the hosted baseline build.
+    row.erase("attributes_json");
     llvm::json::Object item = row_to_json(row);
     item["attributes"] = parse_json(
-        row.at("attributes_json").as_string(),
+        attributes_json,
         artifact_has_cd ? "control dependence attributes" : "CFG attributes");
-    item.erase("attributes_json");
     item["predicate"] = branch_predicate(row.at("terminator").as_string());
     preds.push_back(std::move(item));
   }

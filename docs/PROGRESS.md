@@ -35,6 +35,16 @@ Development log, newest first. Two conventions worth knowing before reading:
 - Quoted `LLVM_DIR` so Windows paths containing spaces are passed to CMake as
   one argument, and limited push-triggered CI to `main` so Dependabot branches
   do not run duplicate push and pull-request workflows.
+- The second hosted pass compiled and tested LLVM 23 successfully on both
+  Ubuntu forward lanes. It also exposed two Windows export dependencies:
+  LLVM's development archive references `ZLIB::ZLIB` without bundling zlib,
+  and its DIA finder does not yet infer Visual Studio 2026. CMake now provides
+  a SHA-256-pinned zlib 1.3.1 fallback and resolves `diaguids.lib` before
+  importing LLVM targets; notices and bundle SBOM inputs include zlib.
+- LLVM 21 alone retained a raw `attributes_json` field after
+  `llvm::json::Object::erase`. Guard projection now removes storage-only
+  columns before constructing the JSON object, preserving the same response
+  contract across LLVM 21-23.
 
 ## 2026-09-01 — Ubuntu 26.04 fresh-clone verification
 

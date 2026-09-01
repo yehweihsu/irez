@@ -38,10 +38,10 @@ if(POLICY CMP0169)
 endif()
 
 # Vendored dependencies live outside this tree; point IREZ_DEPS_DIR at the
-# directory that contains GoogleTest/, SQLiteCpp/, and optionally zstd/
-# checkouts.
+# directory that contains GoogleTest/, SQLiteCpp/, and optionally zlib/ and
+# zstd/ checkouts.
 set(IREZ_DEPS_DIR "" CACHE PATH
-    "Optional directory containing GoogleTest/, SQLiteCpp/, and zstd/ checkouts")
+    "Optional directory containing GoogleTest/, SQLiteCpp/, zlib/, and zstd/ checkouts")
 
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 20)
@@ -69,6 +69,33 @@ if(NOT TARGET zstd::libzstd_shared)
     add_library(zstd::libzstd_shared SHARED IMPORTED)
     set_target_properties(zstd::libzstd_shared PROPERTIES
       IMPORTED_LOCATION "${IREZ_ZSTD_LIBRARY}")
+  endif()
+endif()
+
+# LLVM 23's official Windows development archive exports LLVMSupport with a
+# ZLIB::ZLIB dependency but does not ship zlib. Supply a pinned static build
+# before importing LLVM's targets.
+if(WIN32 AND NOT TARGET ZLIB::ZLIB)
+  set(ZLIB_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+  if(IREZ_DEPS_DIR AND EXISTS "${IREZ_DEPS_DIR}/zlib/CMakeLists.txt")
+    add_subdirectory("${IREZ_DEPS_DIR}/zlib" "${CMAKE_BINARY_DIR}/_deps/zlib-build"
+                     EXCLUDE_FROM_ALL)
+  else()
+    FetchContent_Declare(zlib
+      URL https://codeload.github.com/madler/zlib/tar.gz/refs/tags/v1.3.1
+      URL_HASH SHA256=17e88863f3600672ab49182f217281b6fc4d3c762bde361935e436a95214d05c
+      DOWNLOAD_EXTRACT_TIMESTAMP TRUE)
+    FetchContent_GetProperties(zlib)
+    if(NOT zlib_POPULATED)
+      FetchContent_Populate(zlib)
+      add_subdirectory("${zlib_SOURCE_DIR}" "${zlib_BINARY_DIR}"
+                       EXCLUDE_FROM_ALL)
+    endif()
+  endif()
+  if(TARGET zlibstatic)
+    add_library(ZLIB::ZLIB ALIAS zlibstatic)
+  else()
+    message(FATAL_ERROR "zlib fallback did not define zlibstatic")
   endif()
 endif()
 
@@ -102,6 +129,33 @@ if(WIN32 AND NOT TARGET zstd::libzstd_static)
     add_library(zstd::libzstd_static ALIAS libzstd_static)
   else()
     message(FATAL_ERROR "zstd fallback did not define libzstd_static")
+  endif()
+endif()
+
+# LLVM's DIA finder does not yet infer Visual Studio 2026 installations. Find
+# diaguids.lib ourselves and define the imported target before LLVMExports
+# refers to it. The older raw-library export is still repaired below.
+if(WIN32 AND NOT TARGET DIASDK::Diaguids)
+  set(_irez_dia_hints "")
+  if(DEFINED ENV{VSINSTALLDIR})
+    list(APPEND _irez_dia_hints "$ENV{VSINSTALLDIR}DIA SDK/lib/amd64")
+  endif()
+  file(GLOB _irez_dia_vs_roots
+    "C:/Program Files/Microsoft Visual Studio/*/*/DIA SDK/lib/amd64"
+    "C:/Program Files (x86)/Microsoft Visual Studio/*/*/DIA SDK/lib/amd64")
+  find_file(IREZ_DIAGUIDS_LIBRARY NAMES diaguids.lib
+    PATHS ${_irez_dia_hints} ${_irez_dia_vs_roots})
+  if(IREZ_DIAGUIDS_LIBRARY)
+    get_filename_component(_irez_dia_arch_dir "${IREZ_DIAGUIDS_LIBRARY}" DIRECTORY)
+    get_filename_component(_irez_dia_lib_dir "${_irez_dia_arch_dir}" DIRECTORY)
+    get_filename_component(_irez_dia_sdk_dir "${_irez_dia_lib_dir}" DIRECTORY)
+    set(MSVC_DIA_SDK_DIR "${_irez_dia_sdk_dir}" CACHE PATH
+        "Path to the DIA SDK" FORCE)
+    add_library(DIASDK::Diaguids STATIC IMPORTED)
+    set_target_properties(DIASDK::Diaguids PROPERTIES
+      IMPORTED_LOCATION "${IREZ_DIAGUIDS_LIBRARY}"
+      INTERFACE_INCLUDE_DIRECTORIES "${MSVC_DIA_SDK_DIR}/include")
+    message(STATUS "Found DIA SDK diaguids.lib: ${IREZ_DIAGUIDS_LIBRARY}")
   endif()
 endif()
 

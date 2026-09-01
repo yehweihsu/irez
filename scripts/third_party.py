@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SQLITECPP_VERSION = "3.3.3"
 SQLITE_VERSION = "3.49.2"
 ZSTD_FALLBACK_VERSION = "1.5.7"
+ZLIB_FALLBACK_VERSION = "1.3.1"
 
 
 def validate_native_pins():
@@ -17,6 +18,7 @@ def validate_native_pins():
     cmake = (ROOT / "CMakeLists.txt").read_text(encoding="utf-8")
     expected = (
         f"SQLiteCpp/tar.gz/{SQLITECPP_VERSION}",
+        f"madler/zlib/tar.gz/refs/tags/v{ZLIB_FALLBACK_VERSION}",
         f"zstd-{ZSTD_FALLBACK_VERSION}.tar.gz",
     )
     missing = [value for value in expected if value not in cmake]
@@ -145,7 +147,7 @@ def llvm_component(llvm_version):
     }
 
 
-def native_components(llvm_version, zstd_version=None):
+def native_components(llvm_version, zstd_version=None, zlib_version=None):
     validate_native_pins()
     components = [
         llvm_component(llvm_version),
@@ -183,5 +185,18 @@ def native_components(llvm_version, zstd_version=None):
             "copyright_text": "Copyright (c) Meta Platforms, Inc. and affiliates. All rights reserved.",
             "supplier": "Organization: Meta Platforms, Inc.",
             "purl": f"pkg:github/facebook/zstd@v{zstd_version}",
+        })
+    if zlib_version:
+        components.append({
+            "name": "zlib",
+            "version": zlib_version,
+            "license_declared": "Zlib",
+            "license_concluded": "Zlib",
+            "download_location": ("https://github.com/madler/zlib/releases/tag/"
+                                  f"v{zlib_version}"),
+            "copyright_text": ("Copyright (C) 1995-2022 Jean-loup Gailly "
+                               "and Mark Adler"),
+            "supplier": "Person: Jean-loup Gailly and Mark Adler",
+            "purl": f"pkg:github/madler/zlib@v{zlib_version}",
         })
     return components

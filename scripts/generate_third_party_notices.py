@@ -5,8 +5,9 @@ import argparse
 import hashlib
 from pathlib import Path
 
-from third_party import (ROOT, ZSTD_FALLBACK_VERSION, cargo_components,
-                         llvm_component, native_components, release_llvm_versions)
+from third_party import (ROOT, ZLIB_FALLBACK_VERSION, ZSTD_FALLBACK_VERSION,
+                         cargo_components, llvm_component, native_components,
+                         release_llvm_versions)
 
 
 LLVM_EXCEPTION = """---- LLVM Exceptions to the Apache 2.0 License ----
@@ -84,6 +85,27 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."""
 
+ZLIB_LICENSE = """Copyright (C) 1995-2022 Jean-loup Gailly and Mark Adler
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the
+use of this software.
+
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it
+freely, subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim
+   that you wrote the original software. If you use this software in a product,
+   an acknowledgment in the product documentation would be appreciated but is
+   not required.
+2. Altered source versions must be plainly marked as such, and must not be
+   misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+
+Jean-loup Gailly        Mark Adler
+jloup@gzip.org          madler@alumni.caltech.edu"""
+
 VALUABLE_MIT = """Copyright (c) 2021 Valuable Contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -113,7 +135,8 @@ def render():
     cargo = cargo_components(offline=True, include_documents=True)
     llvm_versions = release_llvm_versions()
     native = [llvm_component(version) for version in llvm_versions]
-    native.extend(native_components(llvm_versions[-1], ZSTD_FALLBACK_VERSION)[1:])
+    native.extend(native_components(
+        llvm_versions[-1], ZSTD_FALLBACK_VERSION, ZLIB_FALLBACK_VERSION)[1:])
     lines = [
         "# Third-Party Notices", "",
         "IREZ is licensed under Apache-2.0. This file records software that may",
@@ -133,6 +156,7 @@ def render():
         "### SQLiteCpp MIT license", "", "````text", SQLITECPP_MIT, "````", "",
         "### SQLite public-domain dedication", "", "````text", SQLITE_PUBLIC_DOMAIN,
         "````", "", "### zstd BSD license", "", "````text", ZSTD_BSD, "````", "",
+        "### zlib license", "", "````text", ZLIB_LICENSE, "````", "",
         "## Rust components", "",
         "The following inventory is generated from `mcp/Cargo.lock` and the",
         "corresponding crate manifests. `IREZ selection` records the permissive",

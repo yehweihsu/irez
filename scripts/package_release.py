@@ -15,7 +15,8 @@ import time
 import zipfile
 from pathlib import Path
 
-from third_party import ZSTD_FALLBACK_VERSION, cargo_components, native_components
+from third_party import (ZLIB_FALLBACK_VERSION, ZSTD_FALLBACK_VERSION,
+                         cargo_components, native_components)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -169,8 +170,10 @@ def main():
                         else "x86_64-unknown-linux-gnu")
         zstd_version = (ZSTD_FALLBACK_VERSION if args.platform.startswith("windows")
                         else linux_zstd_version(sources))
+        zlib_version = (ZLIB_FALLBACK_VERSION
+                        if args.platform.startswith("windows") else None)
         components = [
-            *native_components(llvm_version, zstd_version),
+            *native_components(llvm_version, zstd_version, zlib_version),
             *cargo_components(platform=cargo_target, offline=True),
         ]
         minimum_os = ("Windows 10 x86-64" if args.platform.startswith("windows")

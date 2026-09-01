@@ -45,9 +45,9 @@ The default build finds matching installed packages and otherwise fetches
 GoogleTest 1.17.0 by immutable commit and SQLiteCpp 3.3.3 from a SHA-256
 verified source archive. Offline builds can point
 `IREZ_DEPS_DIR` at a directory containing `GoogleTest/` and `SQLiteCpp/`
-checkouts of those versions. On Windows, an optional `zstd/` checkout avoids
-fetching the pinned zstd 1.5.7 fallback required by LLVM 23. SQLiteCpp bundles
-sqlite3.
+checkouts of those versions. On Windows, optional `zlib/` and `zstd/`
+checkouts avoid fetching the pinned zlib 1.3.1 and zstd 1.5.7 fallbacks
+required by LLVM 23. SQLiteCpp bundles sqlite3.
 
 ```bash
 # One-time setup, from the repository root (any directory works — just pass
@@ -55,7 +55,8 @@ sqlite3.
 mkdir -p ../Software_Repos
 git clone --branch v1.17.0 --depth 1 https://github.com/google/googletest.git ../Software_Repos/GoogleTest
 git clone --branch 3.3.3 --depth 1 https://github.com/SRombauts/SQLiteCpp.git ../Software_Repos/SQLiteCpp
-# Optional Windows/LLVM 23 offline dependency:
+# Optional Windows/LLVM 23 offline dependencies:
+git clone --branch v1.3.1 --depth 1 https://github.com/madler/zlib.git ../Software_Repos/zlib
 git clone --branch v1.5.7 --depth 1 https://github.com/facebook/zstd.git ../Software_Repos/zstd
 ```
 
@@ -180,7 +181,7 @@ Configuration via environment variables (all optional):
 | Variable | Default | Purpose |
 |---|---|---|
 | `IREZ_LLVM_DIR` | auto-detected | LLVM prefix containing `lib\cmake\llvm`; when unset, `build-cpp.ps1` scans `IREZ_DEPS_DIR\LLVM-*` |
-| `IREZ_DEPS_DIR` | `..\Software_Repos` | directory with `GoogleTest\`, `SQLiteCpp\`, and optional `zstd\` checkouts |
+| `IREZ_DEPS_DIR` | `..\Software_Repos` | directory with `GoogleTest\`, `SQLiteCpp\`, and optional `zlib\` / `zstd\` checkouts |
 | `BUILD_DIR` | `build\` | build output directory |
 | `CMAKE_BUILD_TYPE` | `RelWithDebInfo` | CMake build type |
 

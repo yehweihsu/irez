@@ -16,6 +16,7 @@ The complete Apache License 2.0 text is in `LICENSE`.
 | SQLiteCpp | 3.3.3 | MIT | MIT |
 | SQLite | 3.49.2 | LicenseRef-SQLite-Public-Domain | LicenseRef-SQLite-Public-Domain |
 | zstd | 1.5.7 | BSD-3-Clause OR GPL-2.0-only | BSD-3-Clause |
+| zlib | 1.3.1 | Zlib | Zlib |
 
 ### LLVM exception
 
@@ -106,6 +107,31 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
 ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+````
+
+### zlib license
+
+````text
+Copyright (C) 1995-2022 Jean-loup Gailly and Mark Adler
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from the
+use of this software.
+
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it
+freely, subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim
+   that you wrote the original software. If you use this software in a product,
+   an acknowledgment in the product documentation would be appreciated but is
+   not required.
+2. Altered source versions must be plainly marked as such, and must not be
+   misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+
+Jean-loup Gailly        Mark Adler
+jloup@gzip.org          madler@alumni.caltech.edu
 ````
 
 ## Rust components
