@@ -85,8 +85,14 @@ answer. Nothing here claims a solved path condition.
 ## Install a binary release
 
 Download and extract the Windows or Linux x86-64 bundle from
-[the latest release](https://github.com/yehweihsu/irez/releases/latest). The
-supported golden path is:
+[the latest release](https://github.com/yehweihsu/irez/releases/latest).
+
+On Linux/WSL, extract the `.tar.gz` from inside the Linux environment so its
+POSIX executable bits are preserved. A Windows archive tool writing directly
+into the WSL filesystem may create `bin/*` as non-executable; see
+[Quick start](docs/QUICKSTART.md) for the exact command and recovery step.
+
+The supported golden path is:
 
 ```bash
 ./bin/irez-mcp install codex       # or: opencode
@@ -106,15 +112,19 @@ something goes wrong, start at
 
 ## CLI quickstart
 
+For an extracted binary release (`.exe` is implied on Windows):
+
 ```bash
-build/irez --state-dir /tmp/demo init --name demo
-build/irez --state-dir /tmp/demo ingest llvm fixtures/nonfloating.ll --index catalog
-build/irez --state-dir /tmp/demo functions --match choose
-build/irez --state-dir /tmp/demo materialize function '<function-handle>'
-build/irez --state-dir /tmp/demo show '<function-handle>'
-build/irez --state-dir /tmp/demo trace-return '<function-handle>' \
+./bin/irez --state-dir /tmp/demo init --name demo
+./bin/irez --state-dir /tmp/demo ingest llvm fixtures/nonfloating.ll --index catalog
+./bin/irez --state-dir /tmp/demo functions --match choose
+./bin/irez --state-dir /tmp/demo materialize function '<function-handle>'
+./bin/irez --state-dir /tmp/demo show '<function-handle>'
+./bin/irez --state-dir /tmp/demo trace-return '<function-handle>' \
   --budget-nodes 50 --budget-depth 8
 ```
+
+From a source checkout, replace `./bin/irez` with `build/irez`.
 
 See [docs/CLI.md](docs/CLI.md) for the full command reference, envelope
 contract, handle format, and exit codes. V00_01 adds bounded function views,

@@ -115,6 +115,12 @@ def write_tar_gz(archive, bundle, name, epoch):
                     info.uid = info.gid = 0
                     info.uname = info.gname = "root"
                     info.mtime = epoch
+                    if path.is_dir():
+                        info.mode = 0o755
+                    elif path.parent.name == "bin":
+                        info.mode = 0o755
+                    else:
+                        info.mode = 0o644
                     if path.is_file():
                         with path.open("rb") as stream:
                             output.addfile(info, stream)

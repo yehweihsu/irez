@@ -13,6 +13,17 @@ Development log, newest first. Two conventions worth knowing before reading:
 
 ## 2026-09-01 — First hosted CI and official LLVM package setup
 
+- Published private `v0.1.0-rc.1` from the fully green hosted matrix, then
+  independently downloaded and verified both bundles, their SHA-256 entries,
+  and SPDX 2.3 SBOMs. Native Windows and WSL user-path smoke tests covered
+  adapter version reporting, fresh-state initialization, full fixture ingest,
+  status, function lookup, bounded return tracing, and MCP stdio diagnostics.
+- The Linux tarball correctly records its three binaries as mode `0755`, but a
+  Windows archive tool writing directly into WSL can discard those POSIX mode
+  bits. Documented Linux-side extraction and recovery, corrected the release
+  CLI quickstart from `build/irez` to `bin/irez`, and made packaging plus
+  release verification enforce deterministic executable modes.
+
 - The first GitHub-hosted run exposed two packaging assumptions before any
   release was created. `install-llvm-action` v2.0.9 recognizes assets only
   through LLVM 21.1.8, and its Windows `.exe` asset lacks the development

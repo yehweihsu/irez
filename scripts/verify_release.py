@@ -2,6 +2,7 @@
 """Fail closed when an IREZ release archive or manifest is malformed."""
 import argparse
 import hashlib
+import inspect
 import json
 import tarfile
 import tempfile
@@ -29,10 +30,35 @@ def main():
                 source.extractall(root)
         else:
             with tarfile.open(args.archive, "r:gz") as source:
+                members = source.getmembers()
                 if not all(safe_name(item.name) and not item.issym() and not item.islnk()
-                           for item in source.getmembers()):
+                           for item in members):
                     raise SystemExit("unsafe tar member")
-                source.extractall(root)
+                required_executables = {
+                    "bin/irez", "bin/irez-llvm-index", "bin/irez-mcp"
+                }
+                executable_modes = {}
+                for item in members:
+                    parts = PurePosixPath(item.name).parts
+                    relative = "/".join(parts[1:])
+                    if relative in required_executables:
+                        executable_modes[relative] = item.mode & 0o777
+                missing = required_executables - executable_modes.keys()
+                if missing:
+                    raise SystemExit(
+                        f"required executable missing from tar metadata: {sorted(missing)}"
+                    )
+                for relative, mode in executable_modes.items():
+                    if mode != 0o755:
+                        raise SystemExit(
+                            f"unexpected tar mode for {relative}: {mode:04o}; expected 0755"
+                        )
+                extract_options = (
+                    {"filter": "data"}
+                    if "filter" in inspect.signature(source.extractall).parameters
+                    else {}
+                )
+                source.extractall(root, **extract_options)
         roots = [path.parent for path in root.rglob("manifest.json")]
         if len(roots) != 1: raise SystemExit("archive must contain exactly one manifest.json")
         bundle = roots[0]
