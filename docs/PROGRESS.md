@@ -11,6 +11,35 @@ Development log, newest first. Two conventions worth knowing before reading:
   `experiments/` — refer to the same unpublished local working directories.
   They are cited for provenance, not as links you can follow.
 
+## 2026-09-13 — Benchmark and Python JIT tooling
+
+- Added `benchmarks/bounded_queries.py`: deterministic modules with 1, 100,
+  and 1,500 functions (up to 124,501 entities / 187,499 relations), bounded
+  `trace-return` and operand `slice` queries, and JSON reports containing raw
+  samples, medians, input/binary hashes, versions, truncation and query plans.
+  Each query visits 16 nodes with a 50-node/depth-8 budget. Timing uses two
+  warmups and seven fresh CLI processes with warm file caches; ingest and
+  materialization are excluded.
+- Added a Linux builder and source generator for a traversal-only preload
+  ablation. Both CLIs use the same compiler/dependencies and retain the same
+  connection reuse, projection and response semantics. On an Intel Core Ultra
+  9 285H with WSL2, LLVM/Clang 23.1.1 (`-O2`), SQLite 3.46.1 and state on the
+  mounted Windows drive, the 1,500-function case measured `trace-return` at
+  4.899 s versus 87.8 ms (55.8x), and `slice` at 4.721 s versus 70.5 ms (67.0x).
+  These compare the preload ablation with the current implementation. The
+  one-function case favors preloading; the benefit is workload-dependent.
+- Added `demos/jax/generate.py` and `query.py` for Python → JAX CPU LLVM dumps
+  → bounded IREZ evidence. Verified with Python 3.14.7, JAX/jaxlib 0.9.2 and
+  NumPy 2.5.1 on Windows. The `divide_bitcast_fusion` store trace returns 16
+  nodes / 19 operand relations without truncation. Runtime outputs are
+  recorded separately from static SSA evidence.
+- Validation: both benchmark CLIs pass all 47 existing golden commands;
+  complete JSON responses match across both variants and every benchmark
+  sample. Generated JAX dumps ingest and return bounded store evidence.
+  SQLite selected `relations_function_kind` for the measured frontier SQL;
+  the experiment demonstrates removal of artifact-wide preloads, not backend
+  work strictly proportional to the returned subgraph.
+
 ## 2026-09-01 — First hosted CI and official LLVM package setup
 
 - Published private `v0.1.0-rc.1` from the fully green hosted matrix, then

@@ -82,6 +82,37 @@ leaves the indexed set is reported as a boundary with the reason it is one,
 not silently dropped. Truncation is stated rather than implied by a short
 answer. Nothing here claims a solved path condition.
 
+## Benchmarks and Python JIT example
+
+[bounded_queries.py](benchmarks/bounded_queries.py) measures bounded return
+traces and operand slices on synthetic modules up to 124,501 entities. It
+records warm-cache samples, binary/input hashes, query plans, and response
+equality when comparing two binaries:
+
+```bash
+python benchmarks/bounded_queries.py --binary /path/to/irez --output .cache/benchmark
+```
+
+For a traversal comparison, [build_ablation.py](benchmarks/build_ablation.py)
+builds the current CLI and a preload ablation with the same compiler and
+dependencies. It requires Linux, an LLVM development SDK, system SQLite, and
+SQLiteCpp source; run it with `--help` for build options. Measurement protocol
+and validation results are recorded in [PROGRESS.md](docs/PROGRESS.md).
+
+The [JAX driver](demos/jax/generate.py) exports CPU LLVM IR and records runtime
+observations. The [query script](demos/jax/query.py) ingests the dumps and traces
+return/store operands with explicit budgets and provenance. Using Python from
+an environment with JAX installed:
+
+```bash
+python demos/jax/generate.py --mode jit_f --output .cache/jax-demo
+python demos/jax/query.py --binary /path/to/irez --artifacts .cache/jax-demo/dump --output .cache/jax-evidence
+```
+
+Use a new output directory for each run. JAX is only needed to generate the
+example; IREZ itself has no Python or JAX runtime dependency. On Windows, pass
+the Windows `irez.exe` as `--binary`.
+
 ## Install a binary release
 
 Download and extract the Windows or Linux x86-64 bundle from
